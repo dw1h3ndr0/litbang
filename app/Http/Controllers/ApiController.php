@@ -10,11 +10,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Riset;
 
-class RisetController extends Controller
+class ApiController extends Controller
 {
-    public function riset()
+    public function all()
     {
-        $data_riset = Riset::all();
+        $risetCollection = Riset::get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $risetCollection
+        ],200);
 
     }
 
