@@ -18,67 +18,61 @@
               <div class="card-header">
                 <h4>Detail Riset</h4>
               </div>
-              
-              <div class="card-body">
-                                
-                <fieldset disabled>
 
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Judul Riset</label>
-                  <div class="col-sm-9">
-                    <input name="judul" type="text" class="form-control" value="{{$riset->judul}}" >
+              <div class="card card-info">
+                <div class="row">                  
+                  <div class="col-md-4">
+                    <!-- Profile Image -->
+                    <div class="card-body">
+                      <strong>Judul</strong>
+                      <p class="text-muted">{{ $riset->judul }}</p>
+                      <hr>
+                      <strong>Pelaksana</strong>
+                      <p class="text-muted">{{ $riset->pelaksana }}</p>
+                      <hr>
+                      <strong>NIK</strong>
+                      <p class="text-muted">{{ is_null($riset->nik) ? '-' : $riset->nik }}</p>
+                      <hr>
+                      <strong>Nomor Surat Izin</strong>
+                      <p class="text-muted">{{ is_null($riset->no_surat_izin) ? '-' : $riset->no_surat_izin }}</p>
+                      <hr>   
+                      <strong>Tanggal Surat Izin</strong>
+                      <p class="text-muted">{{ is_null($riset->tgl_surat_izin) ? '-' : $riset->tgl_surat_izin }}</p>
+                      <hr>                                         
+                    </div>
+                    <!-- /.card -->
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card">                                  
+                      <div class="card-body">
+                        <div class="user-item ">
+                          <div class="text-center">
+                            <iframe src="{{asset('storage/'.$riset->proposal)}}" width="100%" height="500px"></iframe> 
+                          </div>
+                          <div class="user-details">
+                            <div class="user-name text-center"><h5>{{ $riset->judul }}</h5></div>
+                            <div class="text-job text-muted text-center"> {{ $riset->pelaksana }} </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    
                   </div>
                 </div>
-
-                
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Tahun</label>
-                  <div class="col-sm-9">
-                    <select name="tahun" class="form-control select2">                    
-                      {{ $year = date('Y') }}
-                      <option value="">--pilih tahun--</option>
-                      @for ($i =2016; $i <= $year; $i++)
-                         <option value="{{ $i }}" {{ ($i === $riset->tahun) ? 'selected' : '' }}>{{ $i }}</option>
-                      @endfor
-                    </select>
+                <div class="row">
+                  <div class="col-md-12">
+                     <div class="card-body">                       
+                      <strong>Abstrak</strong>                                            
+                        {!!$riset->abstrak !!}                  
+                        <hr>
+                     </div>
+                    
                   </div>
                 </div>
-                
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Pelaksana Kegiatan</label>
-                  <div class="col-sm-9">
-                    <input name="pelaksana" type="text" class="form-control" value="{{ $riset->pelaksana }}"> 
-                  </div>                 
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Nomor Surat Izin</label>
-                  <div class="col-sm-9">
-                    <input name="no_surat_izin" type="text" class="form-control" value="{{ $riset->no_surat_izin}}">
-                  </div>
-                </div>
-
-                <div class="form-group row {{$errors->has('kuesioner') ? 'has-error' : ''}}">
-                  <label class="col-sm-3 col-form-label">Kuesioner</label>
-                  <div class="col-sm-9">
-                    <input type="file" name="kuesioner" class="dropify {{$errors->has('kuesioner') ? 'is-invalid' : ''}} " id="dropify-event" data-default-file="{{asset('files/'.$riset->kuesioner)}}" data-show-remove="false" >
-                    <small class="form-text text-mute">Format file yang dibolehkan adalah <b>pdf</b> dengan ukuran ukuran maksimal 10MB</small>
-                    @if ($errors->has('kuesioner'))
-                      {{-- <div class="invalid-feedback"> --}}
-                          <small class="form-text text-mute" style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #dc3545;"> {{$errors->first('kuesioner')}} </small>
-                        {{-- </div> --}}
-                    @endif
-                  </div>
-                </div>
-
-                <div class="form-group row mb-0">
-                  <label class="col-sm-3 col-form-label">Kesimpulan</label>
-                  <div class="col-sm-9">
-                    <textarea class="form-control" name="kesimpulan" style="margin-top: 0px; margin-bottom: 0px; height: 100px;">{{ $riset->kesimpulan}}</textarea>
-                  </div>
-                </div>
-                
               </div>
+              
+              
               <div class="card-footer text-right ">
                 <a class="btn btn-primary" href="{{ asset(route('riset.edit', $riset->slug)) }}"><i class="fa fa-edit"></i> edit</a>
               </div>
@@ -98,6 +92,13 @@
 
     $(function() {
       $('.dropify').dropify();
+
+      $('.summernote').summernote({
+        airMode: true
+      });
+      // $('.summernote').summernote('disable');
+
+
 
       var drEvent = $('#dropify-event').dropify();
       drEvent.on('dropify.beforeClear', function(event, element) {

@@ -70,6 +70,18 @@
                   </div>
 
                   <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nomor Induk Kependudukan (NIK) </label>
+                    <div class="col-sm-9">
+                      <input name="nik" type="text" class="form-control {{$errors->has('nik') ? 'is-invalid' : ''}}" value="{{ old('nik') }}">
+                      @if ($errors->has('nik'))
+                        <div class="invalid-feedback">
+                          {{$errors->first('nik')}}
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Nomor Surat Izin</label>
                     <div class="col-sm-9">
                       <input name="no_surat_izin" type="text" class="form-control {{$errors->has('no_surat_izin') ? 'is-invalid' : ''}}" value="{{ old('no_surat_izin')}}">
@@ -82,25 +94,50 @@
                   </div>
 
                   <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Kuesioner</label>
+                    <label class="col-sm-3 col-form-label">Tanggal Surat Izin</label>
                     <div class="col-sm-9">
-                      <input type="file" name="kuesioner" class="{{$errors->has('kuesioner') ? 'is-invalid' : ''}}" id="dropify-event" >
-                      <small class="form-text text-mute">Format file yang dibolehkan adalah <b>pdf</b> dengan ukuran ukuran maksimal 10MB</small>
-                      @if ($errors->has('kuesioner'))
+                      <input name="tgl_surat_izin" type="text" data-provide="datepicker" class="form-control datepicker {{$errors->has('tgl_surat_izin') ? 'is-invalid' : ''}}" value="{{ old('tgl_surat_izin')}}">
+                      @if ($errors->has('tgl_surat_izin'))
+                        <div class="invalid-feedback">
+                          {{$errors->first('tgl_surat_izin')}}
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Kartu Tanda Penduduk (KTP)</label>
+                    <div class="col-sm-9">
+                      <input type="file" name="ktp" class="{{$errors->has('ktp') ? 'is-invalid' : ''}}" id="dropify-ktp" >
+                      <small class="form-text text-mute">Format file yang dibolehkan adalah <b>pdf, jpg, png</b> dengan ukuran ukuran maksimal 1MB</small>
+                      @if ($errors->has('ktp'))
                         {{-- <div class="invalid-feedback"> --}}
-                            <small class="form-text text-mute" style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #dc3545;"> {{$errors->first('kuesioner')}} </small>
+                            <small class="form-text text-mute" style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #dc3545;"> {{$errors->first('ktp')}} </small>
+                          {{-- </div> --}}
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Proposal</label>
+                    <div class="col-sm-9">
+                      <input type="file" name="proposal" class="{{$errors->has('proposal') ? 'is-invalid' : ''}}" id="dropify-event" >
+                      <small class="form-text text-mute">Format file yang dibolehkan adalah <b>pdf</b> dengan ukuran ukuran maksimal 10MB</small>
+                      @if ($errors->has('proposal'))
+                        {{-- <div class="invalid-feedback"> --}}
+                            <small class="form-text text-mute" style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #dc3545;"> {{$errors->first('proposal')}} </small>
                           {{-- </div> --}}
                       @endif
                     </div>
                   </div>
 
                   <div class="form-group row mb-0">
-                    <label class="col-sm-3 col-form-label">Kesimpulan</label>
-                    <div class="col-sm-9">
-                      <textarea class="form-control {{$errors->has('kesimpulan') ? 'is-invalid' : ''}}" name="kesimpulan" style="margin-top: 0px; margin-bottom: 0px; height: 100px;">{{ old('kesimpulan')}}</textarea>
-                      @if ($errors->has('kesimpulan'))
+                    <label class="col-sm-3 col-form-label">Abstrak</label>
+                    <div class="col-sm-12 col-md-9">
+                      <textarea class=" summernote form-control {{$errors->has('abstrak') ? 'is-invalid' : ''}}" name="abstrak">{{ old('abstrak')}}</textarea>
+                      @if ($errors->has('abstrak'))
                         <div class="invalid-feedback">
-                          {{$errors->first('kesimpulan')}}
+                          {{$errors->first('abstrak')}}
                         </div>
                       @endif
                     </div>
@@ -124,6 +161,15 @@
 
     $(function() {
       $('.dropify').dropify();
+
+      var drKtp = $('#dropify-ktp').dropify();
+      drKtp.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+      });
+
+      drKtp.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+      });
 
       var drEvent = $('#dropify-event').dropify();
       drEvent.on('dropify.beforeClear', function(event, element) {

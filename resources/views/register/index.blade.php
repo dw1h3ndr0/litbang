@@ -100,7 +100,7 @@
               </div>
             </div>
             <div class="simple-footer">
-              Copyright &copy; 2021 <div class="bullet"></div> Design By <a href="https://gorontalou.bps.go.id/">BPS Provinsi Gorontalo</a>
+              Copyright &copy; 2021 <div class="bullet"></div> <a href="https://gorontalou.bps.go.id/">BPS Provinsi Gorontalo</a>
             </div>
           </div>
         </div>

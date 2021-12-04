@@ -23,7 +23,13 @@ class UserController extends Controller
     		Alert::error('Gagal', session('eror'));
     	}
 
-        $data_user = \App\Models\User::all();
+        if(Auth()->user()->role_id < '4'){
+            $data_user = User::all();
+        }else{
+            $data_user = User::where('role_id','>=','4')->get();
+        }
+
+        // dd($data_user);
 
     	return view('user.index',[
             'data_user' => $data_user,
@@ -44,7 +50,7 @@ class UserController extends Controller
     	$validator = Validator::make($request->all(),
             [
         		'name' => 'required',
-        		'username' => 'required|unique:App\Models\User,username',
+        		// 'username' => 'required|unique:App\Models\User,username',
         		'email' => 'required|email:dns|regex:/^.+@.+$/i|unique:App\Models\User,email',
         		'role' => 'required',
         		'phone' => 'numeric|nullable',
@@ -70,7 +76,28 @@ class UserController extends Controller
     		try{
     			$user = new \App\Models\User;
 	    		$user->name = $request->name;
-	    		$user->username = $request->username;
+
+                // if(\App\Models\User::where('username',$request->username)->exists()){
+                //     if($request->username == $user->username){                      
+                //         $user->username = $request->username;
+                //     }else{
+                //         Alert::error('Gagal', 'Username sudah digunakan');
+                //         return \Redirect::back()->withError('Username sudah digunakan');
+                //     }
+                // }else{                  
+                //     $user->username = $request->username;
+                // }
+
+                $username = Str::beforeLast($request->email,'@'); 
+                $i=1;
+                do{
+                    if(User::where('username', $username)->exists()){
+                        $username = $username."(".$i.")";
+                        $i++;
+                    }
+                }while(User::where('username', $username)->exists());
+	    		$user->username = $username;
+
 	    		$user->email = $request->email;
 	    		$user->role_id = $request->role;
 	    		$user->phone = $request->phone;
@@ -126,7 +153,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),
             [
         		'name' => 'required',
-        		'username' => 'required',
+        		// 'username' => 'required',
         		'email' => 'required|email|regex:/^.+@.+$/i',
         		'role' => 'required',
         		'phone' => 'numeric|nullable',
@@ -154,16 +181,26 @@ class UserController extends Controller
 	    		$user->nip = $request->nip;
 	    		$user->is_active = $request->status;
 	    		
-	    		if(\App\Models\User::where('username',$request->username)->exists()){
-	    			if($request->username == $user->username){	    				
-		    			$user->username = $request->username;
-	    			}else{
-		    			Alert::error('Gagal', 'Username sudah digunakan');
-		    			return \Redirect::back()->withError('Username sudah digunakan');
-	    			}
-	    		}else{	    			
-		    		$user->username = $request->username;
-	    		}
+	    		// if(\App\Models\User::where('username',$request->username)->exists()){
+	    		// 	if($request->username == $user->username){	    				
+		    	// 		$user->username = $request->username;
+	    		// 	}else{
+		    	// 		Alert::error('Gagal', 'Username sudah digunakan');
+		    	// 		return \Redirect::back()->withError('Username sudah digunakan');
+	    		// 	}
+	    		// }else{	    			
+		    	// 	$user->username = $request->username;
+	    		// }
+
+                $username = Str::beforeLast($request->email,'@'); 
+                $i=1;
+                do{
+                    if(User::where('username', $username)->exists()){
+                        $username = $username."(".$i.")";
+                        $i++;
+                    }
+                }while(User::where('username', $username)->exists());
+                $user->username = $username;
 
 	    		if(\App\Models\User::where('email',$request->email)->exists()){
 	    			if($request->email == $user->email){

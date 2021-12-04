@@ -55,7 +55,7 @@
         @if(
           (Auth::user()->role_id == '1') or 
           (Auth::user()->role_id == '2') or 
-          (Auth::user()->role_id == '3')
+          (Auth::user()->role_id == '4')
         )
         <li class="menu-header">Pengguna</li>
         <li class="{{ Request::is('user') ? 'active' : '' }}"><a class="nav-link" href="{{ asset(route('user.index', [], false)) }}"><i class="fas fa-users fa-fw"></i> <span>Kelola Pengguna</span></a></li>
@@ -168,8 +168,8 @@
       </ul>
 
       <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-        <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-          <i class="fas fa-rocket"></i> Panduan
+        <a href="#" class="btn btn-primary btn-lg btn-block btn-icon-split">
+          <i class="fas fa-book-reader"></i> Panduan
         </a>
       </div>
   </aside>

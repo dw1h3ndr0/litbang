@@ -44,8 +44,8 @@
                 </div>
               </div>
             @else
-              <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
-
+              {{-- <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p> --}}
+              <p class="text-muted">Silahkan Login</p>
             @endif
 
             <form method="POST" action="{{ asset(route('login', false)) }}">
@@ -97,13 +97,14 @@
                 </button>
               </div>
 
-              <div class="mt-5 text-center">
+
+              {{-- <div class="mt-5 text-center">
                 Belum punya akun? <a href="{{ asset(route('register', [], false)) }}">Registrasi</a>
-              </div>
+              </div> --}}
             </form>
 
             <div class="text-center mt-5 text-small">
-              Copyright &copy; 2021 <div class="bullet"></div> Design By <a href="https://gorontalou.bps.go.id/">BPS Provinsi Gorontalo</a>. Made with 💙 by Stisla
+              Copyright &copy; 2021 <div class="bullet"></div> {{-- <a href="https://gorontalou.bps.go.id/">BPS Provinsi Gorontalo</a>. Made with 💙 by Stisla --}}
               {{-- <div class="mt-2">
                 <a href="#">Privacy Policy</a>
                 <div class="bullet"></div>

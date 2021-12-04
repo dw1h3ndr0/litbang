@@ -19,9 +19,12 @@ class CreateRisetsTable extends Migration
             $table->string('judul');
             $table->string('slug')->unique();
             $table->string('pelaksana');
+            $table->string('nik')->nullable();            
             $table->string('no_surat_izin')->nullable();
-            $table->string('kuesioner')->nullable();
-            $table->text('kesimpulan')->nullable();
+            $table->date('tgl_surat_izin')->nullable();
+            $table->string('ktp')->nullable();
+            $table->string('proposal')->nullable();
+            $table->longText('abstrak')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('created_by')->nullable();

@@ -90,13 +90,13 @@
             <div class="col-lg-4 col-md-12 col-12 col-sm-12">
               <div class="card">
                 <div class="card-header">
-                  <h4>Recent Activities</h4>
+                  <h4>Last Login</h4>
                 </div>
                 <div class="card-body">
                   <ul class="list-unstyled list-unstyled-border">
                   	@foreach($data['users'] as $user)
 
-                  	@if($loop->index == 4)
+                  	@if($loop->index == 5)
 	                  	@break
                   	@endif
                     <li class="media">
@@ -119,11 +119,11 @@
                     </li>                   
                     @endforeach 
                   </ul>
-                  <div class="text-center pt-1 pb-1">
+                  {{-- <div class="text-center pt-1 pb-1">
                     <a href="#" class="btn btn-primary btn-sm btn-round">
                       View All
                     </a>
-                  </div>
+                  </div> --}}
                 </div>
               </div>
             </div>

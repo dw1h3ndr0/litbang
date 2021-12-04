@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Riset;
+use DateTime;
 
 class RisetController extends Controller
 {
@@ -40,7 +41,8 @@ class RisetController extends Controller
         		'judul' => 'required',
         		'tahun' => 'required',
         		'pelaksana' => 'required',
-                'kuesioner' => 'max:10240|mimes:pdf',
+                'ktp' => 'max:1024|mimes:pdf,jpg,png',
+                'proposal' => 'max:10240|mimes:pdf',
         	],
             $messages = [
                 'required' => 'rincian :attribute tidak boleh kosong', 
@@ -73,17 +75,26 @@ class RisetController extends Controller
                 $riset->slug = $slug;
 
 	    		$riset->pelaksana = $request->pelaksana;
-	    		$riset->no_surat_izin = $request->no_surat_izin;
-	    		
+                $riset->nik = $request->nik;            
+	    		$riset->no_surat_izin = $request->no_surat_izin;	    		
+                $riset->tgl_surat_izin = $this->getTanggal($request->tgl_surat_izin);
+
                 // menyimpan file yang diupload ke storage
-                if($request->hasFile('kuesioner')){
-                    $file = $request->file('kuesioner');
-                    $nama_file = time()."_".$file->getClientOriginalName();
-                    $folder = uniqid().'-'.now()->timestamp;
-                    $riset->kuesioner = $file->storeAs('files/'.$folder, $nama_file);    
+                if($request->hasFile('ktp')){
+                    $file_ktp = $request->file('ktp');
+                    $nama_ktp = time()."_".$file_ktp->getClientOriginalName();
+                    $folder_ktp = uniqid().'-'.now()->timestamp;
+                    $riset->ktp = $file_ktp->storeAs('ktp/'.$folder_ktp, $nama_ktp);    
                 }
 
-	    		$riset->kesimpulan = $request->kesimpulan;
+                if($request->hasFile('proposal')){
+                    $file = $request->file('proposal');
+                    $nama_file = time()."_".$file->getClientOriginalName();
+                    $folder = uniqid().'-'.now()->timestamp;
+                    $riset->proposal = $file->storeAs('files/'.$folder, $nama_file);    
+                }
+
+	    		$riset->abstrak = $request->abstrak;
                 $riset->created_by = auth()->user()->id;
 	    		$riset->save();
     		}catch(\Exception $exception){
@@ -115,7 +126,8 @@ class RisetController extends Controller
                 'judul' => 'required',
                 'tahun' => 'required',
                 'pelaksana' => 'required',
-                'kuesioner' => 'max:10240|mimes:pdf',
+                'ktp' => 'max:1024|mimes:pdf,jpg,png',
+                'proposal' => 'max:10240|mimes:pdf',
             ],
             $messages = [
                 'required' => 'rincian :attribute tidak boleh kosong',   
@@ -149,23 +161,38 @@ class RisetController extends Controller
                 $riset->slug = $slug;
 
                 $riset->pelaksana = $request->pelaksana;
-                $riset->no_surat_izin = $request->no_surat_izin;
+                $riset->nik = $request->nik;            
+                $riset->no_surat_izin = $request->no_surat_izin;                
+                $riset->tgl_surat_izin = $this->getTanggal($request->tgl_surat_izin);
 
                 // menyimpan file yang diupload ke storage
-                if($request->hasFile('kuesioner')){
+                if($request->hasFile('ktp')){
+                    $file_ktp = $request->file('ktp');
+                    $nama_ktp = time()."_".$file_ktp->getClientOriginalName();
+                    $folder_ktp = Str::beforeLast($riset->ktp,'/');
+                    
+                    //hapus file lama  
+                    if(Storage::exists($riset->ktp)) {
+                        Storage::delete($riset->ktp);
+                    }
 
-                    $file = $request->file('kuesioner');
+                    $riset->ktp = $file_ktp->storeAs($folder_ktp, $nama_ktp);    
+                }
+
+                if($request->hasFile('proposal')){
+
+                    $file = $request->file('proposal');
                     $nama_file = time()."_".$file->getClientOriginalName();
-                    $folder = Str::beforeLast($riset->kuesioner,'/');                    
+                    $folder = Str::beforeLast($riset->proposal,'/');                    
                         
                     //hapus file lama  
-                    if(Storage::exists($riset->kuesioner)) {
-                        Storage::delete($riset->kuesioner);
+                    if(Storage::exists($riset->proposal)) {
+                        Storage::delete($riset->proposal);
                     }
                 
-                    $riset->kuesioner = $file->storeAs($folder, $nama_file);    
+                    $riset->proposal = $file->storeAs($folder, $nama_file);    
                 }
-                $riset->kesimpulan = $request->kesimpulan;
+                $riset->abstrak = $request->abstrak;
                 $riset->updated_by = auth()->user()->id;
                 $riset->save();
             }catch(\Exception $exception){
@@ -207,5 +234,22 @@ class RisetController extends Controller
         $riset->save();
 
         return \Redirect::back();
+    }
+
+    public function getTanggal($tanggal)
+    {
+        if($this->validateDate($tanggal)){
+            return $tanggal;    
+        }else{
+            $date = date_create_from_format("m/d/Y",$tanggal);
+            return  date_format($date,"Y-m-d");         
+        }
+    }
+
+    public function validateDate($date, $format = 'Y-m-d')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+        return $d && $d->format($format) === $date;
     }
 }

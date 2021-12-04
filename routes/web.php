@@ -35,7 +35,7 @@ Route::get('/register',[RegisterController::class, 'index'])->name('register')->
 Route::post('/register',[RegisterController::class, 'store']);
 
 
-Route::group(['middleware' => ['auth','checkRole:1,2,3']], function(){	
+Route::group(['middleware' => ['auth','checkRole:1,2,4']], function(){	
 
 	//Route User menggunakan Route Model Binding
 	Route::get('/user',[UserController::class,'index'])->name('user.index');
@@ -68,6 +68,6 @@ Route::group(['middleware' => ['auth','checkRole:1,2,3,4,5,6']], function(){
 	Route::delete('/riset/{riset:slug}',[RisetController::class,'destroy'])->name('riset.destroy');	
 	Route::get('/riset/{id}/removeFile',[RisetController::class, 'removeFile'])->name('riset.removeFile');
 
-	
+
 	Route::get('/user/{user:username}',[UserController::class, 'show'])->name('user.show');
 });

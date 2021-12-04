@@ -49,7 +49,7 @@
                       @endif
                     </div>
                   </div>
-                  <div class="form-group row">
+                  {{-- <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Username <i class="text-danger">*</i></label>
                     <div class="col-sm-9">
                       <input name="username" type="text" class="form-control {{$errors->has('username') ? 'is-invalid' : ''}}" value="{{ old('username') }}">
@@ -59,7 +59,7 @@
                         </div>
                       @endif
                     </div>
-                  </div>                  
+                  </div>  --}}                 
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Email <i class="text-danger">*</i></label>
                     <div class="col-sm-9">
@@ -92,7 +92,7 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Nomor Telp/HP</label>
+                    <label class="col-sm-3 col-form-label ">Nomor Telp/HP</label>
                     <div class="col-sm-9">
                       <input name="phone" type="text" class="form-control phone-number {{$errors->has('phone') ? 'is-invalid' : ''}}" value="{{ old('phone') }}">
                       @if ($errors->has('phone'))
@@ -166,6 +166,7 @@
       drEvent.on('dropify.afterClear', function(event, element) {
         alert('File deleted');
       });
+      
     });
     
 </script>

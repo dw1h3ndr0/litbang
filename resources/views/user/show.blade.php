@@ -20,51 +20,50 @@
               </div>
 
               <div class="card card-info">
-              <div class="row">
-                
-              <div class="col-md-3">
-                <!-- Profile Image -->
-                <div class="card">                                  
-                  <div class="card-body">
-                    <div class="user-item ">
-                      <div class="text-center">
-                        <img class="img-fluid img-circle" src="{{asset('storage/'.$user->photo)}}" alt="photo">
+                <div class="row">                  
+                  <div class="col-md-3">
+                    <!-- Profile Image -->
+                    <div class="card">                                  
+                      <div class="card-body">
+                        <div class="user-item ">
+                          <div class="text-center">
+                            <img class="img-fluid img-circle" src="{{asset('storage/'.$user->photo)}}" alt="photo">
+                          </div>
+                          <div class="user-details">
+                            <div class="user-name text-center"><h5>{{ $user->name }}</h5></div>
+                            <div class="text-job text-muted text-center"> {{ $user->role->display_name }} </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="user-details">
-                        <div class="user-name text-center"><h5>{{ $user->name }}</h5></div>
-                        <div class="text-job text-muted text-center"> {{ $user->role->display_name }} </div>
-                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                  </div>
+
+                  <div class="col-md-9">
+                    <div class="card-body">
+                      <strong>Nama</strong>
+                      <p class="text-muted">{{ $user->name }}</p>
+                      <hr>
+                      {{-- <strong>Username</strong>
+                      <p class="text-muted">{{ $user->username }}</p>
+                      <hr> --}}
+                      <strong>Email</strong>
+                      <p class="text-muted">{{ $user->email }}</p>
+                      <hr>
+                      <strong>Nomor Telepon</strong>
+                      <p class="text-muted">{{ is_null($user->phone) ? '-' : $user->phone }}</p>
+                      <hr>
+                      <strong>Nomor Induk Pegawai (NIP)</strong>
+                      <p class="text-muted">{{ is_null($user->nip) ? '-' : $user->nip }}</p>
+                      <hr>
+                      <strong>Status</strong>
+                      <p class="text-muted">{{ $user->is_active ? 'Aktif' : 'Tidak Aktif' }}</p>
+                      <hr>
+                        
                     </div>
                   </div>
-                  <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
-              </div>
-
-              <div class="col-md-9">
-                <div class="card-body">
-                  <strong>Nama</strong>
-                  <p class="text-muted">{{ $user->name }}</p>
-                  <hr>
-                  <strong>Username</strong>
-                  <p class="text-muted">{{ $user->username }}</p>
-                  <hr>
-                  <strong>Email</strong>
-                  <p class="text-muted">{{ $user->email }}</p>
-                  <hr>
-                  <strong>Nomor Telepon</strong>
-                  <p class="text-muted">{{ is_null($user->phone) ? '-' : $user->phone }}</p>
-                  <hr>
-                  <strong>Nomor Induk Pegawai (NIP)</strong>
-                  <p class="text-muted">{{ is_null($user->nip) ? '-' : $user->nip }}</p>
-                  <hr>
-                  <strong>Status</strong>
-                  <p class="text-muted">{{ $user->is_active ? 'Aktif' : 'Tidak Aktif' }}</p>
-                  <hr>
-                    
-                </div>
-              </div>
-              </div>
               </div>
               <div class="card-footer text-right ">
                 <a class="btn btn-primary" href="{{ asset(route('user.edit', $user->username)) }}"><i class="fa fa-edit"></i> edit</a>
