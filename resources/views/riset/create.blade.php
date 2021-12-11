@@ -83,7 +83,7 @@
 
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Nomor Surat Izin</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-5">
                       <input name="no_surat_izin" type="text" class="form-control {{$errors->has('no_surat_izin') ? 'is-invalid' : ''}}" value="{{ old('no_surat_izin')}}">
                       @if ($errors->has('no_surat_izin'))
                         <div class="invalid-feedback">
@@ -91,12 +91,10 @@
                         </div>
                       @endif
                     </div>
-                  </div>
 
-                  <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Tanggal Surat Izin</label>
-                    <div class="col-sm-9">
-                      <input name="tgl_surat_izin" type="text" data-provide="datepicker" class="form-control datepicker {{$errors->has('tgl_surat_izin') ? 'is-invalid' : ''}}" value="{{ old('tgl_surat_izin')}}">
+                    <label class="col-sm-2 col-form-label">Tanggal Surat Izin</label>
+                    <div class="col-sm-2">
+                      <input name="tgl_surat_izin" type="text" class="form-control datepicker {{$errors->has('tgl_surat_izin') ? 'is-invalid' : ''}}" value="{{ old('tgl_surat_izin')}}">
                       @if ($errors->has('tgl_surat_izin'))
                         <div class="invalid-feedback">
                           {{$errors->first('tgl_surat_izin')}}
@@ -179,6 +177,16 @@
       drEvent.on('dropify.afterClear', function(event, element) {
         alert('File deleted');
       });
+
+      $('.datepicker').daterangepicker({
+        locale: {format: 'YYYY-MM-DD'},
+        showDropdowns: true,
+        singleDatePicker: true,
+        minYear: 2010,
+        maxYear: parseInt(moment().format('YYYY'),10),
+        autoApply: true,
+      });
+
     });
     
 </script>

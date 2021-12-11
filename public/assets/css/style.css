@@ -1781,6 +1781,17 @@ h6 .badge {
     padding: 10px 20px;
     color: #6c757d; }
 
+button.dropdown-item{
+  padding: 10px 20px;
+  font-weight: 500;
+  line-height: 1.2;
+  border: none;
+}
+button.dropdown-item:focus, button.dropdown-item:active, button.dropdown-item.active {
+    background-color: #6777ef;
+    color: #fff !important;
+    border: #6777ef; }
+
 a.dropdown-item {
   padding: 10px 20px;
   font-weight: 500;
@@ -1795,62 +1806,62 @@ a.dropdown-item {
 .dropdown-list {
   width: 350px;
   padding: 0; }
-  .dropdown-list .dropdown-item {
+  .dropdown-list .dropdown-item .xxx {
     display: inline-block;
     width: 100%;
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: 13px;
     border-bottom: 1px solid #f9f9f9; }
-    .dropdown-list .dropdown-item.dropdown-item-header:hover {
+    .dropdown-list .xxx .dropdown-item.dropdown-item-header:hover {
       background-color: transparent; }
-    .dropdown-list .dropdown-item .time {
+    .dropdown-list .xxx .dropdown-item .time {
       margin-top: 10px;
       font-weight: 600;
       text-transform: uppercase;
       font-size: 10px;
       letter-spacing: .5px; }
-    .dropdown-list .dropdown-item .dropdown-item-avatar {
+    .dropdown-list .xxx .dropdown-item .dropdown-item-avatar {
       float: left;
       width: 40px;
       text-align: right;
       position: relative; }
-      .dropdown-list .dropdown-item .dropdown-item-avatar img {
+      .dropdown-list .xxx .dropdown-item .dropdown-item-avatar img {
         width: 100%; }
-      .dropdown-list .dropdown-item .dropdown-item-avatar .is-online {
+      .dropdown-list .xxx .dropdown-item .dropdown-item-avatar .is-online {
         position: absolute;
         bottom: 0;
         right: 0; }
-    .dropdown-list .dropdown-item .dropdown-item-desc {
+    .dropdown-list .xxx .dropdown-item .dropdown-item-desc {
       line-height: 24px;
       white-space: normal;
       color: #34395e;
       margin-left: 60px; }
-      .dropdown-list .dropdown-item .dropdown-item-desc b {
+      .dropdown-list .xxx .dropdown-item .dropdown-item-desc b {
         font-weight: 600;
         color: #666; }
-      .dropdown-list .dropdown-item .dropdown-item-desc p {
+      .dropdown-list .xxx .dropdown-item .dropdown-item-desc p {
         margin-bottom: 0; }
-    .dropdown-list .dropdown-item:focus {
+    .dropdown-list .xxx .dropdown-item:focus {
       background-color: #6777ef; }
-      .dropdown-list .dropdown-item:focus .dropdown-item-desc {
+      .dropdown-list .xxx .dropdown-item:focus .dropdown-item-desc {
         color: #fff !important; }
-        .dropdown-list .dropdown-item:focus .dropdown-item-desc b {
+        .dropdown-list .xxx .dropdown-item:focus .dropdown-item-desc b {
           color: #fff !important; }
-    .dropdown-list .dropdown-item.dropdown-item-unread:active .dropdown-item-desc {
+    .dropdown-list .xxx .dropdown-item.dropdown-item-unread:active .dropdown-item-desc {
       color: #6c757d; }
-      .dropdown-list .dropdown-item.dropdown-item-unread:active .dropdown-item-desc b {
+      .dropdown-list .xxx .dropdown-item.dropdown-item-unread:active .dropdown-item-desc b {
         color: #6c757d; }
-    .dropdown-list .dropdown-item:active .dropdown-item-desc {
+    .dropdown-list .xxx .dropdown-item:active .dropdown-item-desc {
       color: #fff; }
-      .dropdown-list .dropdown-item:active .dropdown-item-desc b {
+      .dropdown-list .xxx .dropdown-item:active .dropdown-item-desc b {
         color: #fff; }
-    .dropdown-list .dropdown-item.dropdown-item-unread {
+    .dropdown-list .xxx .dropdown-item.dropdown-item-unread {
       background-color: #fbfbfb;
       border-bottom-color: #f2f2f2; }
-      .dropdown-list .dropdown-item.dropdown-item-unread:focus .dropdown-item-desc {
+      .dropdown-list .xxx .dropdown-item.dropdown-item-unread:focus .dropdown-item-desc {
         color: #6c757d !important; }
-        .dropdown-list .dropdown-item.dropdown-item-unread:focus .dropdown-item-desc b {
+        .dropdown-list .xxx .dropdown-item.dropdown-item-unread:focus .dropdown-item-desc b {
           color: #6c757d !important; }
   .dropdown-list .dropdown-footer,
   .dropdown-list .dropdown-header {
@@ -1871,31 +1882,31 @@ a.dropdown-item {
       width: 100%;
       background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8));
       height: 60px; }
-  .dropdown-list .dropdown-list-icons .dropdown-item {
+  .dropdown-list .dropdown-list-icons .xxx .dropdown-item {
     display: flex; }
-    .dropdown-list .dropdown-list-icons .dropdown-item .dropdown-item-icon {
+    .dropdown-list .dropdown-list-icons .xxx .dropdown-item .dropdown-item-icon {
       flex-shrink: 0;
       border-radius: 50%;
       width: 40px;
       height: 40px;
       line-height: 42px;
       text-align: center; }
-      .dropdown-list .dropdown-list-icons .dropdown-item .dropdown-item-icon i {
+      .dropdown-list .dropdown-list-icons .xxx .dropdown-item .dropdown-item-icon i {
         margin: 0; }
-    .dropdown-list .dropdown-list-icons .dropdown-item .dropdown-item-desc {
+    .dropdown-list .dropdown-list-icons .xxx .dropdown-item .dropdown-item-desc {
       margin-left: 15px;
       line-height: 20px; }
-      .dropdown-list .dropdown-list-icons .dropdown-item .dropdown-item-desc .time {
+      .dropdown-list .dropdown-list-icons .xxx .dropdown-item .dropdown-item-desc .time {
         margin-top: 5px; }
 
-.dropdown-flag .dropdown-item {
+.dropdown-flag .xxx .dropdown-item {
   font-weight: 600; }
-  .dropdown-flag .dropdown-item .flag-icon {
+  .dropdown-flag .xxx .dropdown-item .flag-icon {
     width: 20px;
     height: 13px;
     margin-right: 7px;
     margin-top: -6px; }
-  .dropdown-flag .dropdown-item.active {
+  .dropdown-flag .xxx .dropdown-item.active {
     background-color: #6777ef;
     color: #fff; }
 

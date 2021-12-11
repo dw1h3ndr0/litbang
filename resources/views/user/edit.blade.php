@@ -94,7 +94,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Nomor Telp/HP</label>
                   <div class="col-sm-9">
-                    <input name="phone" type="text" class="form-control {{$errors->has('phone') ? 'is-invalid' : ''}}" value="{{ $user->phone }}">
+                    <input name="phone" type="text" class="form-control phone-format {{$errors->has('phone') ? 'is-invalid' : ''}}" value="{{ $user->phone }}">
                     @if ($errors->has('phone'))
                       <div class="invalid-feedback">
                         {{$errors->first('phone')}}
@@ -105,7 +105,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Nomor Induk Pegawai (NIP)</label>
                   <div class="col-sm-9">
-                    <input name="nip" type="text" class="form-control {{$errors->has('nip') ? 'is-invalid' : ''}}" value="{{ $user->nip }}">
+                    <input name="nip" type="text" class="form-control nip-format {{$errors->has('nip') ? 'is-invalid' : ''}}" value="{{ $user->nip }}">
                     @if ($errors->has('nip'))
                       <div class="invalid-feedback">
                         {{$errors->first('nip')}}
@@ -165,6 +165,17 @@
         var url = base_url+'user/'+id+'/removeImage';          
         window.location = url;  
       });
+
+      new Cleave('.phone-format', {
+          blocks: [4, 3, 5],
+      });
+
+      new Cleave('.nip-format', {
+        // delimiter: '-',
+        blocks: [8, 6, 1, 3],
+        // uppercase: true
+      });
+
     });
     
 </script>

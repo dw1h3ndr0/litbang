@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -38,7 +39,14 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $data_role = \App\Models\Role::all();
+        if(Auth()->user()->role_id == '1'){            
+            $data_role = Role::all();
+        }elseif(Auth()->user()->role_id == '2'){
+            $data_role = Role::where('id','>=','2')->get();
+        }elseif(Auth()->user()->role_id == '4'){
+            $data_role = Role::where('id','>=','4')->get();
+        }
+
     	return view('user.create', [
     		'data_role' => $data_role,
     		'avatar' => 'avatar-'.rand(1,5).'.png',
@@ -53,8 +61,8 @@ class UserController extends Controller
         		// 'username' => 'required|unique:App\Models\User,username',
         		'email' => 'required|email:dns|regex:/^.+@.+$/i|unique:App\Models\User,email',
         		'role' => 'required',
-        		'phone' => 'numeric|nullable',
-        		'nip' => 'numeric|nullable',
+        		'phone' => 'regex:/^[0-9\s]*$/|nullable',
+        		'nip' => 'regex:/^[0-9\s]*$/|nullable',
         		'photo' => 'image|max:1024',
         		'password' => ['required', 'confirmed', Password::min(3)],
         	],
@@ -138,8 +146,14 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        // $user = \App\Models\User::findOrFail($id);
-        $data_role = \App\Models\Role::all();
+        if(Auth()->user()->role_id == '1'){            
+            $data_role = Role::all();
+        }elseif(Auth()->user()->role_id == '2'){
+            $data_role = Role::where('id','>=','2')->get();
+        }elseif(Auth()->user()->role_id == '4'){
+            $data_role = Role::where('id','>=','4')->get();
+        }
+        
         return view('user.edit', [
         	'user' => $user,
         	'data_role' => $data_role,
@@ -156,8 +170,8 @@ class UserController extends Controller
         		// 'username' => 'required',
         		'email' => 'required|email|regex:/^.+@.+$/i',
         		'role' => 'required',
-        		'phone' => 'numeric|nullable',
-        		'nip' => 'numeric|nullable',
+        		'phone' => 'regex:/^[0-9\s]*$/|nullable',
+        		'nip' => 'regex:/^[0-9\s]*$/|nullable',
         		'photo' => 'image|max:1024'
         	],
             $messages = [
