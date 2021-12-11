@@ -20,4 +20,4 @@ use App\Http\Controllers\ApiController;
 //     return $request->user();
 // });
 
-Route::get('/risetCollection',[ApiController::class,'all'])->name('riset.all');
+Route::get('/risetCollection',[ApiController::class,'all']);

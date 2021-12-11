@@ -15,7 +15,7 @@ class ApiController extends Controller
     public function all()
     {
         $risetCollection = Riset::get();
-
+        
         return response()->json([
             'success' => true,
             'data' => $risetCollection
