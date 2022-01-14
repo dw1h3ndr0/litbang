@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,13 @@ Route::group(['middleware' => ['auth','checkRole:1,2,4']], function(){
 	//Rubah Password
 	Route::get('/change-password/{user:username}', [ChangePasswordController::class, 'index'])->name('change.password');
 	Route::put('/change-password/{user:username}', [ChangePasswordController::class,'update'])->name('change.password');
+
+	//Setting
+	Route::get('/setting',[SettingController::class,'index'])->name('setting.index');
+	// Route::get('/setting',[SettingController::class,'create'])->name('setting.create');
+	Route::post('/setting',[SettingController::class,'store'])->name('setting.store');
+	Route::get('/setting/removeFile/{jenis}',[SettingController::class, 'removeFile'])->name('setting.removeFile');
+
 });
 
 	
@@ -66,7 +74,7 @@ Route::group(['middleware' => ['auth','checkRole:1,2,3,4,5,6']], function(){
 	Route::get('/riset/{riset:slug}/edit',[RisetController::class, 'edit'])->name('riset.edit');
 	Route::put('/riset/{riset:slug}',[RisetController::class,'update'])->name('riset.update');
 	Route::delete('/riset/{riset:slug}',[RisetController::class,'destroy'])->name('riset.destroy');	
-	Route::get('/riset/{id}/removeFile',[RisetController::class, 'removeFile'])->name('riset.removeFile');
+	Route::get('/riset/{id}/removeFile/{jenis}',[RisetController::class, 'removeFile'])->name('riset.removeFile');
 	Route::get('/riset_export_excel',[RisetController::class, 'export_excel'])->name('riset.export');
 
 

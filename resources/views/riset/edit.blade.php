@@ -175,6 +175,9 @@
     $(function() {
       $('.dropify').dropify();
 
+      var idRiset = $('#idRiset').val();
+      // console.log(idRiset);
+
       var drKtp = $('#dropify-ktp').dropify();
       drKtp.on('dropify.beforeClear', function(event, element) {
         return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
@@ -182,19 +185,17 @@
 
       drKtp.on('dropify.afterClear', function(event, element) {
         alert('File deleted');
+        var url = base_url+'riset/'+idRiset+'/removeFile/ktp';          
+        window.location = url; 
       });
 
       var drEvent = $('#dropify-event').dropify();
       drEvent.on('dropify.beforeClear', function(event, element) {
         return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
       });
-
-      var idRiset = $('#idRiset').val();
-      // console.log(idRiset);
       drEvent.on('dropify.afterClear', function(event, element) {
         alert('File deleted');
-
-        var url = base_url+'riset/'+idRiset+'/removeFile';          
+        var url = base_url+'riset/'+idRiset+'/removeFile/proposal';          
         window.location = url;          
       });
 

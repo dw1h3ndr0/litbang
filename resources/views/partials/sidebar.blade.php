@@ -122,8 +122,8 @@
           (Auth::user()->role_id == '2') or 
           (Auth::user()->role_id == '3')
         )
-        <li class="menu-header">Setting</li>
-        <li class="{{ Request::is('setting') ? 'active' : '' }}"><a class="nav-link" href="blank.html"><i class="fas fa-cogs"></i> <span>Setting</span></a></li>
+        <li class="menu-header">Pengaturan</li>
+        <li class="{{ Request::is('setting') ? 'active' : '' }}"><a class="nav-link" href="{{ asset(route('setting.index', [], false)) }}"><i class="fas fa-cogs"></i> <span>Pengaturan</span></a></li>
         @endif
        {{--  <li class="nav-item dropdown">
           <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>

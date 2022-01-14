@@ -210,9 +210,9 @@ class RisetController extends Controller
     {
         // $riset = \App\Models\Riset::findOrFail($id);
         
-        //hapus file beserta folder        
-        $folder = Str::beforeLast($riset->kuesioner,'/'); 
-        if(Storage::exists($riset->kuesioner)) {
+        //hapus proposal beserta folder        
+        $folder = Str::beforeLast($riset->proposal,'/'); 
+        if(Storage::exists($riset->proposal)) {
             Storage::deleteDirectory($folder);
         }
 
@@ -222,17 +222,24 @@ class RisetController extends Controller
         return redirect('riset')->withSuccessMessage('Riset berhasil dihapus');
     }
 
-    public function removeFile($id)
+    public function removeFile($id,$jenis)
     {
         $riset = \App\Models\Riset::findOrFail($id);
 
-        // dd(Storage::exists($riset->kuesioner));
+        // dd(Storage::exists($riset->proposal));
         //hapus file
-        if(Storage::exists($riset->kuesioner)) {
-            Storage::delete($riset->kuesioner);
+        if($jenis == 'proposal'){
+            if(Storage::exists($riset->proposal)) {
+                Storage::delete($riset->proposal);
+            }
+            $riset->proposal = NULL;            
+        }else if($jenis == 'ktp'){
+            if(Storage::exists($riset->ktp)) {
+                Storage::delete($riset->ktp);
+            }
+            $riset->ktp = NULL;
         }
 
-        $riset->kuesioner = NULL;
         $riset->save();
 
         return \Redirect::back();
