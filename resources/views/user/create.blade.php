@@ -94,7 +94,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label ">Nomor Telp/HP</label>
                     <div class="col-sm-9">
-                      <input name="phone" type="text" class="form-control phone-number {{$errors->has('phone') ? 'is-invalid' : ''}}" value="{{ old('phone') }}">
+                      <input name="phone" type="text" class="form-control phone-format {{$errors->has('phone') ? 'is-invalid' : ''}}" value="{{ old('phone') }}">
                       @if ($errors->has('phone'))
                         <div class="invalid-feedback">
                           {{$errors->first('phone')}}
@@ -105,7 +105,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Nomor Induk Pegawai (NIP)</label>
                     <div class="col-sm-9">
-                      <input name="nip" type="text" class="form-control {{$errors->has('nip') ? 'is-invalid' : ''}}" value="{{ old('nip') }}">
+                      <input name="nip" type="text" class="form-control nip-format {{$errors->has('nip') ? 'is-invalid' : ''}}" value="{{ old('nip') }}">
                       @if ($errors->has('nip'))
                         <div class="invalid-feedback">
                           {{$errors->first('nip')}}
@@ -165,6 +165,18 @@
 
       drEvent.on('dropify.afterClear', function(event, element) {
         alert('File deleted');
+      });
+
+      new Cleave('.phone-format', {
+        // delimiter: ' ',
+        // numeral: true;
+        blocks: [4, 3, 5],
+      });
+
+      new Cleave('.nip-format', {
+        // delimiter: ' ',
+        // numeral: true,
+        blocks: [8, 6, 1, 3],
       });
       
     });

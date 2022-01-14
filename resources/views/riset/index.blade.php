@@ -20,6 +20,9 @@
               {{-- <div class="card-footer text-right ">
                 <a href="{{ asset(route('riset.create', [], false)) }}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Tambah Riset</a>
               </div> --}}
+              <div class="card-footer text-right ">
+                <a href="{{ asset(route('riset.export', [], false)) }}" class="btn btn-icon icon-left btn-success"><i class="far fa-file-excel"></i> Export Excel</a>
+              </div>
                  
               <div class="card-body">
                 {{-- <div class="section-title mt-0">Light</div> --}}

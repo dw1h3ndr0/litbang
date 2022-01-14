@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Riset;
+use App\Exports\RisetExport;
+use Maatwebsite\Excel\Facades\Excel;
 use DateTime;
 
 class RisetController extends Controller
@@ -251,5 +253,12 @@ class RisetController extends Controller
         $d = DateTime::createFromFormat($format, $date);
         // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
         return $d && $d->format($format) === $date;
+    }
+
+    public function export_excel()
+    {
+        // dd('tes');
+        return Excel::download(new RisetExport, 'riset.xls', \Maatwebsite\Excel\Excel::XLS);
+    
     }
 }

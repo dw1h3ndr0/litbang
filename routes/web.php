@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth','checkRole:1,2,3,4,5,6']], function(){
 	Route::put('/riset/{riset:slug}',[RisetController::class,'update'])->name('riset.update');
 	Route::delete('/riset/{riset:slug}',[RisetController::class,'destroy'])->name('riset.destroy');	
 	Route::get('/riset/{id}/removeFile',[RisetController::class, 'removeFile'])->name('riset.removeFile');
+	Route::get('/riset_export_excel',[RisetController::class, 'export_excel'])->name('riset.export');
 
 
 	Route::get('/user/{user:username}',[UserController::class, 'show'])->name('user.show');

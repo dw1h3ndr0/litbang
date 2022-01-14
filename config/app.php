@@ -161,13 +161,11 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class, 
-        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-
         /*
          * Package Service Providers...
-         */
-
+         */        
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */

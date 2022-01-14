@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="{{asset('vendor/dropify/css/dropify.min.css')}}">
   <link rel="stylesheet" href="{{asset('vendor/summernote-0.8.18-dist/summernote-lite.css')}}">
   <link rel="stylesheet" href="{{asset('vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/daterangepicker/daterangepicker.css')}}">
 
 </head>
 
@@ -53,7 +54,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{asset('assets/js/stisla.js')}}"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js" integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- JS Libraies -->
 
@@ -64,6 +64,8 @@
   <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('vendor/summernote-0.8.18-dist/summernote-lite.js')}}"></script>
   <script src="{{asset('vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+  <script src="{{asset('vendor/daterangepicker/daterangepicker.js')}}"></script>
+  <script src="{{asset('vendor/cleave.js/dist/cleave.js')}}"></script>
 
   <!-- Page Specific JS File -->
   <script src="{{asset('assets/js/page/index.js')}}"></script>
