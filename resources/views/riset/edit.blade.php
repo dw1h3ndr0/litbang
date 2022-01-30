@@ -1,4 +1,14 @@
 @extends('layouts.main')
+
+@section('title')
+  Riset &mdash; {{$setting->site_title}}
+@endsection
+
+@section('favicon')
+  <!-- ICONS -->  
+  <link rel="icon" type="image" href="{{ asset('storage/'.$setting->site_favicon) }}">
+@endsection
+
 @section('content')
 
     <section class="section">
@@ -57,6 +67,26 @@
                     </div>
                   @endif
                 </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Kategori <i class="text-danger">*</i></label>
+                  <div class="col-sm-9">
+                    <select name="kategori" class="form-control select2 {{$errors->has('kategori') ? 'is-invalid' : ''}}">                 
+                    @foreach($data_kategori as $kategori)    
+                      @if($riset->kategori_id == $kategori->id)
+                        <option value="{{ $kategori->id }}" selected>{{ $kategori->name }}</option>
+                      @else                  
+                        <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+                      @endif
+                    @endforeach                      
+                    </select>
+                    @if ($errors->has('kategori'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('kategori')}}
+                      </div>
+                    @endif
+                  </div>
+                </div>
                 
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Pelaksana Kegiatan <i class="text-danger">*</i></label>
@@ -111,7 +141,11 @@
                     @if( is_null($riset->ktp))
                     
                     @else 
-                      data-default-file="{{asset('storage/'.$riset->ktp)}}" 
+                      {{-- @if(Str::before($riset->ktp,'/') == 'ktp') --}}
+                        data-default-file="{{asset('storage/'.$riset->ktp)}}"
+                      {{-- @else 
+                        data-default-file="{{asset($riset->ktp)}}"
+                      @endif --}}
                     @endif >
                     <small class="form-text text-mute">Format file yang dibolehkan adalah <b>pdf, jpg, png</b> dengan ukuran ukuran maksimal 1MB</small>
                     @if ($errors->has('ktp'))

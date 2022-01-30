@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Login &mdash; Litbang</title>
+  <title>{{ $page }} &mdash; {{ $setting->site_title }}</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -14,6 +14,10 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
+  
+  <!-- ICONS -->
+  <link rel="icon" type="image" href="{{ asset('storage/'.$setting->site_favicon) }}">
+
 </head>
 
 <body>
@@ -22,8 +26,8 @@
       <div class="d-flex flex-wrap align-items-stretch">
         <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
           <div class="p-4 m-3">
-            <img src="{{asset('assets/img/stisla-fill.svg')}}" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
-            <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Litbang</span></h4>
+            <img src="{{asset('storage/'.$setting->site_logo)}}" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
+            <h4 class="text-dark font-weight-normal">Welcome to <br><span class="font-weight-bold">{{ $setting->site_title }}</span></h4>
             
             @if(session()->has('success'))
               <div class="alert alert-success alert-dismissible show fade">
@@ -113,12 +117,12 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="{{asset('assets/img/unsplash/login-bg.jpg')}}">
+        <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="{{asset('storage/'.$setting->login_pict)}}">
           <div class="absolute-bottom-left index-2">
             <div class="text-light p-5 pb-2">
               <div class="mb-5 pb-3">
-                <h1 class="mb-2 display-4 font-weight-bold">Litbang Apps</h1>
-                <h5 class="font-weight-normal text-muted-transparent">Gorontalo, Indonesia</h5>
+                <h1 class="mb-2 display-4 font-weight-bold"> {{ $setting->site_title }} </h1>
+                <h5 class="font-weight-normal text-muted-transparent">{{ $setting->site_tagline }}</h5>
               </div>
               {{-- Photo by <a class="text-light bb" target="_blank" href="https://unsplash.com/photos/a8lTjWJJgLA">Justin Kauffman</a> on <a class="text-light bb" target="_blank" href="https://unsplash.com">Unsplash</a> --}}
             </div>

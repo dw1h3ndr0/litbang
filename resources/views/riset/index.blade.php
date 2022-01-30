@@ -1,4 +1,14 @@
 @extends('layouts.main')
+
+@section('title')
+  Riset &mdash; {{$setting->site_title}}
+@endsection
+
+@section('favicon')
+  <!-- ICONS -->  
+  <link rel="icon" type="image" href="{{ asset('storage/'.$setting->site_favicon) }}">
+@endsection
+
 @section('content')
 
     <section class="section">
@@ -34,6 +44,7 @@
                       <th scope="col">No.</th>
                       <th scope="col">Tahun</th>
                       <th scope="col">Judul</th>
+                      <th scope="col">Kategori</th>
                       <th scope="col">Pelaksana Kegiatan</th>
                       <th scope="col">No. Surat Izin</th>
                       <th scope="col" class="text-center">Aksi</th>
@@ -46,6 +57,7 @@
                       <td>{{ $loop->index + 1}}</td>
                       <td>{{ $riset->tahun }}</td>
                       <td>{{ $riset->judul }}</td>
+                      <td>{{ $riset->kategori->name }}</td>
                       <td>{{ $riset->pelaksana }}</td>
                       <td>{{ $riset->no_surat_izin}}</td>
                       <td class="text-center"> 

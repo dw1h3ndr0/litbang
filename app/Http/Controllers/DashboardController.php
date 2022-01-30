@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use App\Models\User;
+use App\Models\Setting;
 
 class DashboardController extends Controller
 {
@@ -97,8 +98,8 @@ class DashboardController extends Controller
 
         $data['dashboard'] = json_encode($data);
 
-    	// dd($users);
-
+        $data['setting'] = Setting::first();
+    	// dd($data['setting']->site_title);
     	return view('dashboard.index', $data)->with('data',$data);
     }
 }

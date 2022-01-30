@@ -18,6 +18,7 @@ class CreateRisetsTable extends Migration
             $table->year('tahun');
             $table->string('judul');
             $table->string('slug')->unique();
+            $table->foreignId('kategori_id');
             $table->string('pelaksana');
             $table->string('nik')->nullable();            
             $table->string('no_surat_izin')->nullable();

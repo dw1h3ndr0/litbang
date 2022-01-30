@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
     public function index()
 	{
+		$setting = Setting::first();
 	    return view('register.index',[
+	    	'setting' => $setting,
+	    	'page' => 'register',
 	    	'title' => 'register'
 	    ]);
 	}

@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\SettingController;
+use App\Models\Setting;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,13 @@ use App\Http\Controllers\SettingController;
 */
 
 Route::get('/', function () {
-    //return view('welcome');
-    return view('login.index');
+    //return view('welcome');    
+	$setting = Setting::first();
+    return view('login.index',[
+	    	'title' => 'login',
+	    	'page' => 'login',
+	    	'setting' => $setting
+	    ]);
 })->middleware('guest');
 
 
@@ -56,6 +62,11 @@ Route::group(['middleware' => ['auth','checkRole:1,2,4']], function(){
 	// Route::get('/setting',[SettingController::class,'create'])->name('setting.create');
 	Route::post('/setting',[SettingController::class,'store'])->name('setting.store');
 	Route::get('/setting/removeFile/{jenis}',[SettingController::class, 'removeFile'])->name('setting.removeFile');
+
+	//Kategori
+	Route::post('/kategori',[KategoriController::class],'store')->name('kategori.store');
+	Route::put('kategori/{id}',[KategoriController::class],'update')->name('kategori.update');
+	Route::delete('kategori/{id}/destroy',[KategoriController::class],'destroy')->name('kategori.destroy');
 
 });
 

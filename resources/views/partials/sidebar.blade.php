@@ -1,10 +1,10 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">Litbang</a>
+      <a href="{{ asset(route('dashboard', [], false)) }}">{{$setting->site_title}}</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="index.html">Lb</a>
+      <a href="{{ asset(route('dashboard', [], false)) }}"><img src="{{asset('storage/'.$setting->site_logo)}}" alt="logo" width="40" class="shadow-light rounded-circle mb-5 mt-2"></a>
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>

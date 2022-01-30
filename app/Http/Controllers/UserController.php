@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Setting;
 
 class UserController extends Controller
 {
@@ -31,8 +32,10 @@ class UserController extends Controller
         }
 
         // dd($data_user);
+        $setting = Setting::first();
 
     	return view('user.index',[
+            'setting' => $setting,
             'data_user' => $data_user,
         ]);
     }
@@ -47,7 +50,9 @@ class UserController extends Controller
             $data_role = Role::where('id','>=','4')->get();
         }
 
+        $setting = Setting::first();
     	return view('user.create', [
+            'setting' => $setting,
     		'data_role' => $data_role,
     		'avatar' => 'avatar-'.rand(1,5).'.png',
     	]);
@@ -137,7 +142,9 @@ class UserController extends Controller
     {
         // $user = \App\Models\User::findOrFail($id);
         $data_role = \App\Models\Role::all();
+        $setting = Setting::first();
         return view('user.show', [
+            'setting' => $setting,
         	'user' => $user,
         	'data_role' => $data_role,
     		'avatar' => 'avatar-'.rand(1,5).'.png',
@@ -154,7 +161,9 @@ class UserController extends Controller
             $data_role = Role::where('id','>=','4')->get();
         }
         
+        $setting = Setting::first();
         return view('user.edit', [
+            'setting' => $setting,
         	'user' => $user,
         	'data_role' => $data_role,
     		'avatar' => 'avatar-'.rand(1,5).'.png',

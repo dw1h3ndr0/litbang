@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class UserFactory extends Factory
 {
@@ -14,13 +15,32 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $email = $this->faker->unique()->safeEmail();
+        $username = Str::beforeLast($email,'@'); 
+        $i=1;
+        do{
+            if(User::where('username', $username)->exists()){
+                $username = $username."(".$i.")";
+                $i++;
+            }
+        }while(User::where('username', $username)->exists());
+
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'username' => $username,
+            'email' => $email,
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => bcrypt('coba'),
+            'role_id' => $this->faker->numberBetween(2,6),
+            'phone' => $this->faker->phoneNumber(),
+            'photo' => 'profil/avatar-'.$this->faker->numberBetween(1,5).'.png',
+            'nip' => $this->faker->numerify('##################'),
+            'is_active' => 1,
+            'last_login' => now(),
             'remember_token' => Str::random(10),
-        ];
+            'created_at' => now()
+        ];  
     }
 
     /**

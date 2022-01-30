@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Riset extends Model
+class Kategori extends Model
 {
     use HasFactory;
 
-    protected $table = 'risets';
+    protected $table = 'kategoris';
     protected $guarded = ['id'];
 
-    public function kategori()
+    public function riset()
     {
-        return $this->belongsTo(Kategori::class,'kategori_id');
+        return $this->hasMany(Riset::class);
     }
 }

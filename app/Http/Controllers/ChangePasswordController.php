@@ -8,6 +8,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Setting;
 
 class ChangePasswordController extends Controller
 {
@@ -35,7 +36,10 @@ class ChangePasswordController extends Controller
             Alert::error('Gagal', session('eror'));
         }
         // $user = \App\Models\User::find($id);
-        return view('user.changePassword',['user' => $user]);
+        $setting = Setting::first();
+        return view('user.changePassword',[
+            'setting' => $setting,
+            'user' => $user]);
     } 
 
     /**

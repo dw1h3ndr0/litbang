@@ -1,4 +1,14 @@
 @extends('layouts.main')
+
+@section('title')
+  Dashboard &mdash; {{$data['setting']->site_title}}
+@endsection
+
+@section('favicon')
+  <!-- ICONS -->  
+  <link rel="icon" type="image" href="{{ asset('storage/'.$data['setting']->site_favicon) }}">
+@endsection
+
 @section('content')
 	<section class="section">
           <div class="section-header">

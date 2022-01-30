@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Riset;
+use App\Models\Kategori;
+use App\Models\Setting;
 use App\Exports\RisetExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DateTime;
@@ -25,15 +27,24 @@ class RisetController extends Controller
     	}
 
         $data_riset = \App\Models\Riset::all();
+        $data_kategori = Kategori::all();
+        $setting = Setting::first();
 
     	return view('riset.index',[
+            'setting' => $setting,
             'data_riset' => $data_riset,
+            'data_kategori' => $data_kategori
         ]);
     }
 
     public function create()
     {
-    	return view('riset.create');
+        $data_kategori = Kategori::all();
+        $setting = Setting::first();
+    	return view('riset.create',[
+            'setting' => $setting,
+            'data_kategori' => $data_kategori
+        ]);
     }
 
     public function store(Request $request)
@@ -42,6 +53,7 @@ class RisetController extends Controller
             [
         		'judul' => 'required',
         		'tahun' => 'required',
+                'kategori' => 'required',
         		'pelaksana' => 'required',
                 'ktp' => 'max:1024|mimes:pdf,jpg,png',
                 'proposal' => 'max:10240|mimes:pdf',
@@ -75,7 +87,7 @@ class RisetController extends Controller
                 }while(Riset::where('slug', $slug)->exists());
 
                 $riset->slug = $slug;
-
+                $riset->kategori_id = $request->kategori;
 	    		$riset->pelaksana = $request->pelaksana;
                 $riset->nik = $request->nik;            
 	    		$riset->no_surat_izin = $request->no_surat_izin;	    		
@@ -112,13 +124,23 @@ class RisetController extends Controller
     public function show(Riset $riset)
     {
         // $riset = \App\Models\Riset::findOrFail($id);
-        return view('riset.show', ['riset' => $riset]);
+        $setting = Setting::first();
+        return view('riset.show', [
+            'setting'=> $setting, 
+            'riset' => $riset
+        ]);
     }
 
     public function edit(Riset $riset)
     {
         // $riset = \App\Models\Riset::findOrFail($id);
-        return view('riset.edit', ['riset' => $riset]);
+        $data_kategori = Kategori::all();
+        $setting = Setting::first();
+        return view('riset.edit', [
+            'setting' => $setting,
+            'riset' => $riset,
+            'data_kategori' => $data_kategori
+        ]);
     }
 
     public function update(Request $request, Riset $riset)
@@ -127,6 +149,7 @@ class RisetController extends Controller
             [
                 'judul' => 'required',
                 'tahun' => 'required',
+                'kategori' => 'required',
                 'pelaksana' => 'required',
                 'ktp' => 'max:1024|mimes:pdf,jpg,png',
                 'proposal' => 'max:10240|mimes:pdf',
@@ -161,7 +184,7 @@ class RisetController extends Controller
                 }while(Riset::where('slug', $slug)->exists());
 
                 $riset->slug = $slug;
-
+                $riset->kategori_id = $request->kategori;
                 $riset->pelaksana = $request->pelaksana;
                 $riset->nik = $request->nik;            
                 $riset->no_surat_izin = $request->no_surat_izin;                

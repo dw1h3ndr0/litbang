@@ -1,4 +1,14 @@
 @extends('layouts.main')
+
+@section('title')
+  Riset &mdash; {{$setting->site_title}}
+@endsection
+
+@section('favicon')
+  <!-- ICONS -->  
+  <link rel="icon" type="image" href="{{ asset('storage/'.$setting->site_favicon) }}">
+@endsection
+
 @section('content')
 
     <section class="section">
@@ -24,13 +34,19 @@
                   <div class="col-md-4">
                     <!-- Profile Image -->
                     <div class="card-body">
+                      <strong>Tahun</strong>
+                      <p class="text-muted">{{ $riset->tahun }}</p>
+                      <hr>
+                      <strong>Kategori</strong>
+                      <p class="text-muted">{{ $riset->kategori->name }}</p>
+                      <hr>
                       <strong>Judul</strong>
                       <p class="text-muted">{{ $riset->judul }}</p>
                       <hr>
                       <strong>Pelaksana</strong>
                       <p class="text-muted">{{ $riset->pelaksana }}</p>
                       <hr>
-                      <strong>NIK</strong>
+                      <strong>NIK </strong><button class="btn btn-link" data-toggle="modal" data-target="#contohModal">-detail-</button>
                       <p class="text-muted">{{ is_null($riset->nik) ? '-' : $riset->nik }}</p>
                       <hr>
                       <strong>Nomor Surat Izin</strong>
@@ -38,7 +54,7 @@
                       <hr>   
                       <strong>Tanggal Surat Izin</strong>
                       <p class="text-muted">{{ is_null($riset->tgl_surat_izin) ? '-' : $riset->tgl_surat_izin }}</p>
-                      <hr>                                         
+                      <hr>                                                           
                     </div>
                     <!-- /.card -->
                   </div>
@@ -64,26 +80,47 @@
                   <div class="col-md-12">
                      <div class="card-body">                       
                       <strong>Abstrak</strong>                                            
-                        {!!$riset->abstrak !!}                  
+                        <p class="text-muted">
+                          {!!$riset->abstrak !!}                  
+                        </p>
                         <hr>
                      </div>
                     
                   </div>
                 </div>
               </div>
-              
-              
+                            
               <div class="card-footer text-right ">
                 <a class="btn btn-primary" href="{{ asset(route('riset.edit', $riset->slug)) }}"><i class="fa fa-edit"></i> edit</a>
               </div>
 
-            </fieldset>
-            </div>
-            
+            </div>            
           </div>          
         </div>
       </div>
+
     </section>
+
+    <div class="modal fade" id="contohModal" tabindex="-1" role="dialog" arialabelledby="modalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">KTP</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            @if(Str::beforeLast($riset->ktp,'.') == 'pdf')
+             <iframe src="{{asset('storage/'.$riset->ktp)}}" width="100%" height="100%"></iframe>
+            @else
+             <image src="{{asset('storage/'.$riset->ktp)}}" width="100%" height="100%">
+            @endif
+          </div>
+        </div>
+      </div>
+    </div> 
+      
       
 @endsection
 

@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Setting;
 
 class LoginController extends Controller
 {
 	public function index()
 	{
+		$setting = Setting::first();
 	    return view('login.index',[
-	    	'title' => 'login'
+	    	'title' => 'login',
+	    	'page' => 'login',
+	    	'setting' => $setting
 	    ]);
 	}
 

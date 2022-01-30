@@ -1,4 +1,14 @@
 @extends('layouts.main')
+
+@section('title')
+  Riset &mdash; {{$setting->site_title}}
+@endsection
+
+@section('favicon')
+  <!-- ICONS -->  
+  <link rel="icon" type="image" href="{{ asset('storage/'.$setting->site_favicon) }}">
+@endsection
+
 @section('content')
 
     <section class="section">
@@ -52,6 +62,27 @@
                       @if ($errors->has('tahun'))
                         <div class="invalid-feedback">
                           {{$errors->first('tahun')}}
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Kategori <i class="text-danger">*</i></label>
+                    <div class="col-sm-9">
+                      <select name="kategori" class="form-control select2 {{$errors->has('kategori') ? 'is-invalid' : ''}}"> 
+                      <option value="">--pilih kategori--</option>
+                      @foreach($data_kategori as $kategori)    
+                        @if(old('kategori') == $kategori->id)
+                          <option value="{{ $kategori->id }}" selected>{{ $kategori->name }}</option>
+                        @else                  
+                          <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+                        @endif
+                      @endforeach
+                      </select>
+                      @if ($errors->has('kategori'))
+                        <div class="invalid-feedback">
+                          {{$errors->first('kategori')}}
                         </div>
                       @endif
                     </div>
