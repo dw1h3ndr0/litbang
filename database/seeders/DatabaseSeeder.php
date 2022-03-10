@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
         	'password' => bcrypt('coba'),
         	'role_id' => '1',
         	'photo' => 'profil/avatar-4.png',
-        	'is_active' => '1'
+        	'is_active' => '1',
+            'kode_wilayah' => '7500'
         ]);
 
         User::create([
@@ -36,7 +37,19 @@ class DatabaseSeeder extends Seeder
         	'password' => bcrypt('coba'),
         	'role_id' => '4',
         	'photo' => 'profil/avatar-1.png',
-        	'is_active' => '1'
+        	'is_active' => '1',
+            'kode_wilayah' => '7500'
+        ]);
+
+        User::create([
+            'name' => 'admin kesbangpol kab. Gorontalo Utara',
+            'email' => 'admin.kesbang7505@gmail.com',
+            'username' => 'admin.kesbang7505',
+            'password' => bcrypt('coba'),
+            'role_id' => '4',
+            'photo' => 'profil/avatar-1.png',
+            'is_active' => '1',
+            'kode_wilayah' => '7505'
         ]);
 
         User::create([
@@ -46,7 +59,19 @@ class DatabaseSeeder extends Seeder
         	'password' => bcrypt('coba'),
         	'role_id' => '5',
         	'photo' => 'profil/avatar-3.png',
-        	'is_active' => '1'
+        	'is_active' => '1',
+            'kode_wilayah' => '7500'
+        ]);
+
+        User::create([
+            'name' => 'operator kesbang kab. Gorontalo Utara',
+            'email' => 'operator.kesbang7505@gmail.com',
+            'username' => 'operator.kesbang7505',
+            'password' => bcrypt('coba'),
+            'role_id' => '5',
+            'photo' => 'profil/avatar-3.png',
+            'is_active' => '1',
+            'kode_wilayah' => '7505'
         ]);
 
         User::create([
@@ -56,7 +81,19 @@ class DatabaseSeeder extends Seeder
         	'password' => bcrypt('coba'),
         	'role_id' => '2',
         	'photo' => 'profil/avatar-2.png',
-        	'is_active' => '1'
+        	'is_active' => '1',
+            'kode_wilayah' => '7500'
+        ]);
+
+        User::create([
+            'name' => 'admin bapppeda kab. Gorontalo Utara',
+            'email' => 'admin.bapppeda7505@gmail.com',
+            'username' => 'admin.bapppeda7505',
+            'password' => bcrypt('coba'),
+            'role_id' => '2',
+            'photo' => 'profil/avatar-2.png',
+            'is_active' => '1',
+            'kode_wilayah' => '7505'
         ]);
 
         User::create([
@@ -66,7 +103,19 @@ class DatabaseSeeder extends Seeder
         	'password' => bcrypt('coba'),
         	'role_id' => '3',
         	'photo' => 'profil/avatar-4.png',
-        	'is_active' => '1'
+        	'is_active' => '1',
+            'kode_wilayah' => '7500'
+        ]);
+
+        User::create([
+            'name' => 'operator bapppeda kab. Gorontalo Utara',
+            'email' => 'operator.bapppeda7505@gmail.com',
+            'username' => 'operator.bapppeda7505',
+            'password' => bcrypt('coba'),
+            'role_id' => '3',
+            'photo' => 'profil/avatar-4.png',
+            'is_active' => '1',
+            'kode_wilayah' => '7505'
         ]);
 
         User::create([
@@ -76,11 +125,23 @@ class DatabaseSeeder extends Seeder
         	'password' => bcrypt('coba'),
         	'role_id' => '6',
         	'photo' => 'profil/avatar-5.png',
-        	'is_active' => '1'
+        	'is_active' => '1',
+            'kode_wilayah' => '7500'
+        ]);
+
+        User::create([
+            'name' => 'pengguna',
+            'email' => 'coba7505@coba.com',
+            'username' => 'coba7505',
+            'password' => bcrypt('coba'),
+            'role_id' => '6',
+            'photo' => 'profil/avatar-5.png',
+            'is_active' => '1',
+            'kode_wilayah' => '7505'
         ]);
 
 
-        User::factory(30)->create();
+        User::factory(50)->create();
 
         Setting::create([
         	'site_description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
@@ -133,31 +194,111 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Kategori::create([
-            'name' => 'Pertama',
-            'description' => 'Kategori Pertama'
+            'name' => 'Geografi',
+            'description' => 'Geografi'
         ]);
 
         Kategori::create([
-            'name' => 'Kedua',
-            'description' => 'Kategori Kedua'
+            'name' => 'Iklim',
+            'description' => 'Iklim'
         ]);
 
         Kategori::create([
-            'name' => 'Ketiga',
-            'description' => 'Kategori Ketiga'
+            'name' => 'Kemiskinan dan Ketimpangan',
+            'description' => 'Kemiskinan dan Ketimpangan'
         ]);
 
         Kategori::create([
-            'name' => 'Keempat',
-            'description' => 'Kategori Keempat'
+            'name' => 'Kependudukan',
+            'description' => 'Kependudukan'
         ]);
 
         Kategori::create([
-            'name' => 'Kelima',
-            'description' => 'Kategori Kelima'
+            'name' => 'Kesehatan',
+            'description' => 'Kesehatan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Pemerintahan',
+            'description' => 'Pemerintahan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Pendidikan',
+            'description' => 'Pendidikan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Politik dan Keamanan',
+            'description' => 'Politik dan Keamanan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Ketenagakerjaan',
+            'description' => 'Ketenagakerjaan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Energi',
+            'description' => 'Energi'
+        ]);
+
+        Kategori::create([
+            'name' => 'Industri',
+            'description' => 'Industri'
+        ]);
+
+        Kategori::create([
+            'name' => 'Keuangan',
+            'description' => 'Keuangan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Pariwisata',
+            'description' => 'Pariwisata'
+        ]);
+
+        Kategori::create([
+            'name' => 'PDRB',
+            'description' => 'Produk Domestik Regional Bruto'
+        ]);
+
+        Kategori::create([
+            'name' => 'Transportasi',
+            'description' => 'Transportasi'
+        ]);
+
+        Kategori::create([
+            'name' => 'Kehutanan',
+            'description' => 'Kehutanan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Perikanan',
+            'description' => 'Perikanan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Peternakan',
+            'description' => 'Peternakan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Perkebunan',
+            'description' => 'Perkebunan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Tanaman Pangan',
+            'description' => 'Tanaman Pangan'
+        ]);
+
+        Kategori::create([
+            'name' => 'Hortikultura',
+            'description' => 'Hortikultura'
         ]);
 
 
-        Riset::factory(30)->create();
+        Riset::factory(50)->create();
     }
 }

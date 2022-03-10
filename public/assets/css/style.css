@@ -968,7 +968,8 @@ table tr:hover .table-links {
   padding: 25px; }
 
 .modal-body {
-  padding-top: 15px; }
+  padding-top: 15px; 
+  overflow-y: auto; }
 
 .modal-footer {
   padding-top: 15px;

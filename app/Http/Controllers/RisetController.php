@@ -13,6 +13,7 @@ use App\Models\Kategori;
 use App\Models\Setting;
 use App\Exports\RisetExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Collection;
 use DateTime;
 
 class RisetController extends Controller
@@ -52,11 +53,18 @@ class RisetController extends Controller
     	$validator = Validator::make($request->all(),
             [
         		'judul' => 'required',
+                'tahun_data' => 'required',
         		'tahun' => 'required',
+                'tgl_pelaksanaan' => 'required',
+                'sumber_dana' => 'required',                
                 'kategori' => 'required',
+                'penyelenggara' => 'required',
         		'pelaksana' => 'required',
+                'penanggungjawab' => 'required',
+                'kontak' => 'regex:/^[0-9\s]*$/|required',
                 'ktp' => 'max:1024|mimes:pdf,jpg,png',
                 'proposal' => 'max:10240|mimes:pdf',
+                'hasil_penelitian' => 'max:10240|mimes:pdf',
         	],
             $messages = [
                 'required' => 'rincian :attribute tidak boleh kosong', 
@@ -74,9 +82,8 @@ class RisetController extends Controller
     		//insert ke tabel risets
     		try{
     			$riset = new \App\Models\Riset;
-	    		$riset->tahun = $request->tahun;
 	    		$riset->judul = $request->judul;
-                
+
                 $slug = Str::slug($request->judul, '-');
                 $i=1;
                 do{
@@ -87,9 +94,20 @@ class RisetController extends Controller
                 }while(Riset::where('slug', $slug)->exists());
 
                 $riset->slug = $slug;
-                $riset->kategori_id = $request->kategori;
+
+                $riset->tahun_data = $request->tahun_data;
+                $riset->tahun = $request->tahun;
+                $riset->tgl_mulai = $this->getTanggal(Str::before($request->tgl_pelaksanaan,' '));                
+                $riset->tgl_selesai = $this->getTanggal(Str::afterLast($request->tgl_pelaksanaan,' '));                
+                $riset->sumber_dana = $request->sumber_dana;
+                
+                $riset->kategori_id = collect($request->kategori)->implode(',');                    
+
+                $riset->penyelenggara = $request->penyelenggara;
 	    		$riset->pelaksana = $request->pelaksana;
-                $riset->nik = $request->nik;            
+                $riset->penanggungjawab = $request->penanggungjawab;
+                $riset->nik = $request->nik;
+                $riset->kontak = $request->kontak;          
 	    		$riset->no_surat_izin = $request->no_surat_izin;	    		
                 $riset->tgl_surat_izin = $this->getTanggal($request->tgl_surat_izin);
 
@@ -109,6 +127,18 @@ class RisetController extends Controller
                 }
 
 	    		$riset->abstrak = $request->abstrak;
+
+                if($request->hasFile('hasil_penelitian')){
+                    $file_penelitian = $request->file('hasil_penelitian');
+                    $nama_penelitian = time()."_".$file_penelitian->getClientOriginalName();
+                    $folder_penelitian = uniqid().'-'.now()->timestamp;
+                    $riset->hasil_penelitian = $file_penelitian->storeAs('penelitian/'.$folder_penelitian, $nama_penelitian);    
+                }
+
+                $riset->resume = $request->resume;
+
+                // $riset->kode_wilayah = Auth::user()->kode_wilayah;
+
                 $riset->created_by = auth()->user()->id;
 	    		$riset->save();
     		}catch(\Exception $exception){
@@ -124,10 +154,14 @@ class RisetController extends Controller
     public function show(Riset $riset)
     {
         // $riset = \App\Models\Riset::findOrFail($id);
-        $setting = Setting::first();
+        $data_kategori = Kategori::all();
+        $setting = Setting::first();           
+        $kategoris = Str::of($riset->kategori_id)->explode(',');     
         return view('riset.show', [
             'setting'=> $setting, 
-            'riset' => $riset
+            'riset' => $riset,
+            'data_kategori' => $data_kategori,
+            'kategoris' => $kategoris
         ]);
     }
 
@@ -136,10 +170,12 @@ class RisetController extends Controller
         // $riset = \App\Models\Riset::findOrFail($id);
         $data_kategori = Kategori::all();
         $setting = Setting::first();
+        $kategoris = Str::of($riset->kategori_id)->explode(',');
         return view('riset.edit', [
             'setting' => $setting,
             'riset' => $riset,
-            'data_kategori' => $data_kategori
+            'data_kategori' => $data_kategori,
+            'kategoris' => $kategoris
         ]);
     }
 
@@ -148,11 +184,18 @@ class RisetController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'judul' => 'required',
+                'tahun_data' => 'required',
                 'tahun' => 'required',
+                'tgl_pelaksanaan' => 'required',
+                'sumber_dana' => 'required',                
                 'kategori' => 'required',
+                'penyelenggara' => 'required',
                 'pelaksana' => 'required',
+                'penanggungjawab' => 'required',
+                'kontak' => 'regex:/^[0-9\s]*$/|required',
                 'ktp' => 'max:1024|mimes:pdf,jpg,png',
                 'proposal' => 'max:10240|mimes:pdf',
+                'hasil_penelitian' => 'max:10240|mimes:pdf',                
             ],
             $messages = [
                 'required' => 'rincian :attribute tidak boleh kosong',   
@@ -171,7 +214,6 @@ class RisetController extends Controller
             //insert ke tabel risets dengan id
             try{
                 // $riset = \App\Models\Riset::findOrFail($id);
-                $riset->tahun = $request->tahun;
                 $riset->judul = $request->judul;
 
                 $slug = Str::slug($request->judul, '-');
@@ -184,9 +226,21 @@ class RisetController extends Controller
                 }while(Riset::where('slug', $slug)->exists());
 
                 $riset->slug = $slug;
-                $riset->kategori_id = $request->kategori;
+
+
+                $riset->tahun_data = $request->tahun_data;
+                $riset->tahun = $request->tahun;
+                $riset->tgl_mulai = $this->getTanggal(Str::before($request->tgl_pelaksanaan,' '));                
+                $riset->tgl_selesai = $this->getTanggal(Str::afterLast($request->tgl_pelaksanaan,' '));                
+                $riset->sumber_dana = $request->sumber_dana;
+                
+                $riset->kategori_id = collect($request->kategori)->implode(',');   
+
+                $riset->penyelenggara = $request->penyelenggara;
                 $riset->pelaksana = $request->pelaksana;
-                $riset->nik = $request->nik;            
+                $riset->penanggungjawab = $request->penanggungjawab;
+                $riset->nik = $request->nik;
+                $riset->kontak = $request->kontak;          
                 $riset->no_surat_izin = $request->no_surat_izin;                
                 $riset->tgl_surat_izin = $this->getTanggal($request->tgl_surat_izin);
 
@@ -205,7 +259,6 @@ class RisetController extends Controller
                 }
 
                 if($request->hasFile('proposal')){
-
                     $file = $request->file('proposal');
                     $nama_file = time()."_".$file->getClientOriginalName();
                     $folder = Str::beforeLast($riset->proposal,'/');                    
@@ -217,7 +270,26 @@ class RisetController extends Controller
                 
                     $riset->proposal = $file->storeAs($folder, $nama_file);    
                 }
+
                 $riset->abstrak = $request->abstrak;
+
+                if($request->hasFile('hasil_penelitian')){
+                    $file_penelitian = $request->file('hasil_penelitian');
+                    $nama_penelitian = time()."_".$file_penelitian->getClientOriginalName();
+                    $folder_penelitian = Str::beforeLast($riset->hasil_penelitian,'/');
+                    
+                    //hapus file lama  
+                    if(Storage::exists($riset->hasil_penelitian)) {
+                        Storage::delete($riset->hasil_penelitian);
+                    }
+
+                    $riset->hasil_penelitian = $file_penelitian->storeAs($folder_penelitian, $nama_penelitian);    
+                }
+
+                $riset->resume = $request->resume;
+
+                // $riset->kode_wilayah = Auth::user()->kode_wilayah;
+
                 $riset->updated_by = auth()->user()->id;
                 $riset->save();
             }catch(\Exception $exception){
@@ -237,6 +309,12 @@ class RisetController extends Controller
         $folder = Str::beforeLast($riset->proposal,'/'); 
         if(Storage::exists($riset->proposal)) {
             Storage::deleteDirectory($folder);
+        }
+
+        //hapus penelitian beserta folder        
+        $folder_penelitian = Str::beforeLast($riset->hasil_penelitian,'/'); 
+        if(Storage::exists($riset->hasil_penelitian)) {
+            Storage::deleteDirectory($folder_penelitian);
         }
 
         //delete riset
@@ -261,6 +339,11 @@ class RisetController extends Controller
                 Storage::delete($riset->ktp);
             }
             $riset->ktp = NULL;
+        }else if($jenis == 'penelitian'){
+            if(Storage::exists($riset->hasil_penelitian)) {
+                Storage::delete($riset->hasil_penelitian);
+            }
+            $riset->hasil_penelitian = NULL;
         }
 
         $riset->save();

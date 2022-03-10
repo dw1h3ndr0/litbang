@@ -37,6 +37,7 @@ class UserFactory extends Factory
             'photo' => 'profil/avatar-'.$this->faker->numberBetween(1,5).'.png',
             'nip' => $this->faker->numerify('##################'),
             'is_active' => 1,
+            'kode_wilayah' => $this->faker->randomElement(['7500', '7505']),
             'last_login' => now(),
             'remember_token' => Str::random(10),
             'created_at' => now()

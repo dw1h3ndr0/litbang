@@ -22,19 +22,30 @@ class RisetFactory extends Factory
         // $image = 'https://source.unsplash.com/random';
         $imageFile = new File($image);
         Storage::copy('files/default.pdf', 'files/'.$folder.'/default.pdf');
+        Storage::copy('penelitian/default.pdf', 'penelitian/'.$folder.'/default.pdf');
          
         return [
             'tahun' => $tahun,
+            'tahun_data' => $this->faker->numberBetween(2016,$tahun),
+            'tgl_mulai' => $this->faker->dateTimeBetween('-1 year', '-1 year'),
+            'tgl_selesai' => $this->faker->dateTimeBetween('-1 month', '+1 month'),
+            'sumber_dana' => $this->faker->randomElement(['Dalam Negeri', 'Luar Negeri']),
             'judul' => $this->faker->sentence(mt_rand(2,8)),
             'slug' => $this->faker->slug(),
-            'kategori_id' => mt_rand(1,5),
+            'kategori_id' => mt_rand(1,21),
+            'penyelenggara' => $this->faker->randomElement(['Individu', 'Kementerian/Lembaga', 'Perguruan Tinggi','Organisasi Masyarakat','Badan Usaha']),
             'pelaksana' => $this->faker->name(),
+            'penanggungjawab' => $this->faker->name(),
             'nik' => $this->faker->numerify('################'),
+            'kontak' => $this->faker->phoneNumber(),
             'no_surat_izin' => $this->faker->bothify('B-###/???-???/0#/'.$tahun),
             'tgl_surat_izin' => $this->faker->date($tahun.'-m-d'),
             'ktp' => Storage::disk('public')->putFile('ktp/'.$folder, $imageFile),
             'proposal' => 'files/'.$folder.'/default.pdf',
             'abstrak' => $this->faker->paragraphs(mt_rand(6,10),true),
+            'hasil_penelitian' => 'penelitian/'.$folder.'/default.pdf',
+            'resume' => $this->faker->paragraphs(mt_rand(6,10),true),
+            'kode_wilayah' => $this->faker->randomElement(['7500', '7505']),
             'created_at' => now()
         ];
     }

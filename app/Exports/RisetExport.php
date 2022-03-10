@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Riset;
+use App\Models\Kategori;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -18,7 +19,9 @@ class RisetExport implements FromCollection, WithHeadings, WithStyles
     {
 
     	// dd(Riset::all());
-        return Riset::select('tahun','judul','pelaksana','nik','no_surat_izin','tgl_surat_izin')->get();
+        // $data_kategori = Kategori::all();
+        // $kategoris = Riset::select('kategori_id')->explode(',');
+        return Riset::select('tahun','tahun_data','tgl_mulai','tgl_selesai','sumber_dana','judul','penyelenggara','pelaksana','penanggungjawab','nik','kontak','no_surat_izin','tgl_surat_izin')->get();
     }
 
     public function headings(): array
@@ -29,11 +32,25 @@ class RisetExport implements FromCollection, WithHeadings, WithStyles
 
         	'Tahun',
 
+            'Tahun Data',
+
+            'Tanggal Mulai',
+
+            'Tanggal Selesai',
+
+            'Sumber Dana',
+
         	'Judul',
 
-        	'Pelaksana',
+            'Penyelenggara Kegiatan',
+
+        	'Pelaksana Kegiatan',
+
+            'Penanggung Jawab Kegiatan',
 
         	'NIK',
+
+            'Kontak',
 
         	'Nomor Surat Izin',
 

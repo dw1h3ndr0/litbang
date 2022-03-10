@@ -47,6 +47,7 @@
                       <th scope="col">Kategori</th>
                       <th scope="col">Pelaksana Kegiatan</th>
                       <th scope="col">No. Surat Izin</th>
+                      <th scope="col">Status</th>
                       <th scope="col" class="text-center">Aksi</th>
                     </tr>
                   </thead>
@@ -57,10 +58,30 @@
                       <td>{{ $loop->index + 1}}</td>
                       <td>{{ $riset->tahun }}</td>
                       <td>{{ $riset->judul }}</td>
-                      <td>{{ $riset->kategori->name }}</td>
+                      <td>
+                        <input name="invisible" type="hidden" value="
+                        {{ $kategoris = Str::of($riset->kategori_id)->explode(',') }}">
+                        @foreach($data_kategori as $kategori)
+                           @foreach($kategoris as $kat)
+                            @if($kategori->id == $kat)
+                              {{$kategori->name}};
+                              @break
+                            @endif
+                           @endforeach
+                        @endforeach
+                      </td>
                       <td>{{ $riset->pelaksana }}</td>
                       <td>{{ $riset->no_surat_izin}}</td>
-                      <td class="text-center"> 
+                      <td>
+                        @if( now() < $riset->tgl_mulai )
+                          <span class="badge badge-light">belum</span>
+                        @elseif( now() <= $riset->tgl_selesai)
+                          <span class="badge badge-info">proses</span>
+                        @else
+                          <span class="badge badge-success">selesai</span>
+                        @endif
+                      </td>
+                      <td class="col-md-2 text-center"> 
                           
                           <form action="{{ route('riset.destroy', $riset->slug)}}" method="post">
                           @method('DELETE')

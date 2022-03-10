@@ -46,10 +46,32 @@
                     @endif
                   </div>
                 </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Tahun Data <i class="text-danger">*</i></label>
+                  <div class="col-sm-9">
+                    <select name="tahun_data" class="form-control select2 {{$errors->has('tahun_data') ? 'is-invalid' : ''}}">                    
+                    {{ $year = date('Y') }}
+                    <option value="">--pilih tahun data--</option>
+                    @for ($i =2016; $i <= $year; $i++)
+                      @if($riset->tahun_data == $i)
+                        <option value="{{ $i }}" selected>{{ $i }}</option>
+                      @else
+                        <option value="{{ $i }}">{{ $i }}</option>
+                      @endif
+                    @endfor
+                    </select>
+                    @if ($errors->has('tahun_data'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('tahun_data')}}
+                      </div>
+                    @endif
+                  </div>                    
+                </div>
                 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Tahun <i class="text-danger">*</i></label>
-                  <div class="col-sm-9">
+                  <label class="col-sm-3 col-form-label">Tahun Pelaksanaan <i class="text-danger">*</i></label>
+                  <div class="col-sm-4">
                     <select name="tahun" class="form-control select2 {{$errors->has('tahun') ? 'is-invalid' : ''}}">                    
                       {{ $year = date('Y') }}
                       @for ($i =2016; $i <= $year; $i++)
@@ -66,12 +88,54 @@
                       {{$errors->first('tahun')}}
                     </div>
                   @endif
+
+                  <label class="col-sm-2 col-form-label text-right">Waktu Pelaksanaan <i class="text-danger">*</i></label>
+                  <div class="col-sm-3">
+                    <input name="tgl_pelaksanaan" class="form-control {{$errors->has('tgl_pelaksanaan') ? 'is-invalid' : ''}}" type="text" value="{{ $riset->tgl_mulai }} - {{ $riset->tgl_selesai }}" />
+                    @if ($errors->has('tgl_pelaksanaan'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('tgl_pelaksanaan')}}
+                      </div>
+                    @endif                      
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Sumber Pendanaan <i class="text-danger">*</i></label>
+                  <div class="col-sm-9">
+                    <select name="sumber_dana" class="form-control select2 {{$errors->has('sumber_dana') ? 'is-invalid' : ''}}"> 
+                      <option value="">--pilih sumber dana--</option>
+                      <option value="Dalam Negeri" {{ $riset->sumber_dana == 'Dalam Negeri' ? 'selected' : ''}}>Dalam Negeri</option>
+                      <option value="Luar Negeri" {{ $riset->sumber_dana == 'Luar Negeri' ? 'selected' : ''}}>Luar Negeri</option>
+                    </select>
+                    @if ($errors->has('sumber_dana'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('sumber_dana')}}
+                      </div>
+                    @endif
+                  </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Kategori <i class="text-danger">*</i></label>
                   <div class="col-sm-9">
-                    <select name="kategori" class="form-control select2 {{$errors->has('kategori') ? 'is-invalid' : ''}}">                 
+                    <select class="js-example-basic-multiple" name="kategori[]" multiple="multiple">
+                      @foreach($data_kategori as $kategori)
+                        {{$key = 0;}}
+                        @foreach($kategoris as $kat)                         
+                          @if($kategori->id == $kat)
+                            {{$key = 1;}}                            
+                          @endif                       
+                        @endforeach
+                        @if($key == 1)
+                          <option value="{{ $kategori->id }}" selected>{{ $kategori->name }}</option> 
+                        @else
+                          <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+                        @endif
+                      @endforeach
+                    </select>
+
+                    {{-- <select name="kategori" class="form-control select2 {{$errors->has('kategori') ? 'is-invalid' : ''}}">                 
                     @foreach($data_kategori as $kategori)    
                       @if($riset->kategori_id == $kategori->id)
                         <option value="{{ $kategori->id }}" selected>{{ $kategori->name }}</option>
@@ -79,7 +143,7 @@
                         <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
                       @endif
                     @endforeach                      
-                    </select>
+                    </select> --}}
                     @if ($errors->has('kategori'))
                       <div class="invalid-feedback">
                         {{$errors->first('kategori')}}
@@ -88,6 +152,25 @@
                   </div>
                 </div>
                 
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Penyelenggara Kegiatan <i class="text-danger">*</i></label>
+                  <div class="col-sm-9">
+                    <select name="penyelenggara" class="form-control select2 {{$errors->has('penyelenggara') ? 'is-invalid' : ''}}"> 
+                      <option value="">--pilih penyelenggara kegiatan--</option>
+                      <option value="Individu" {{$riset->penyelenggara == 'Individu' ? 'selected' : ''}}>Individu</option>
+                      <option value="Kementerian/Lembaga" {{$riset->penyelenggara == 'Kementerian/Lembaga' ? 'selected' : ''}}>Kementerian/Lembaga</option>
+                      <option value="Perguruan Tinggi" {{$riset->penyelenggara == 'Perguruan Tinggi' ? 'selected' : ''}}>Perguruan Tinggi</option>
+                      <option value="Organisasi Masyarakat" {{$riset->penyelenggara == 'Organisasi Masyarakat' ? 'selected' : ''}}>Organisasi Masyarakat</option>
+                      <option value="Badan Usaha" {{$riset->penyelenggara == 'Badan Usaha' ? 'selected' : ''}}>Badan Usaha</option>
+                    </select>
+                    @if ($errors->has('penyelenggara'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('penyelenggara')}}
+                      </div>
+                    @endif
+                  </div>
+                </div>
+
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Pelaksana Kegiatan <i class="text-danger">*</i></label>
                   <div class="col-sm-9">
@@ -101,12 +184,36 @@
                 </div>
 
                 <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Penanggung Jawab Kegiatan <i class="text-danger">*</i></label>
+                  <div class="col-sm-9">
+                    <input name="penanggungjawab" type="text" class="form-control {{$errors->has('penanggungjawab') ? 'is-invalid' : ''}}" value="{{ $riset->penanggungjawab }}">
+                    @if ($errors->has('penanggungjawab'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('penanggungjawab')}}
+                      </div>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Nomor Induk Kependudukan (NIK) </label>
                   <div class="col-sm-9">
                     <input name="nik" type="text" class="form-control {{$errors->has('nik') ? 'is-invalid' : ''}}" value="{{ $riset->nik }}">
                     @if ($errors->has('nik'))
                       <div class="invalid-feedback">
                         {{$errors->first('nik')}}
+                      </div>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Nomor Kontak <i class="text-danger">*</i></label>
+                  <div class="col-sm-9">
+                    <input name="kontak" type="text" class="form-control {{$errors->has('kontak') ? 'is-invalid' : ''}}" value="{{ $riset->kontak }}">
+                    @if ($errors->has('kontak'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('kontak')}}
                       </div>
                     @endif
                   </div>
@@ -186,6 +293,36 @@
                     @endif
                   </div>
                 </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Hasil Penelitian</label>
+                  <div class="col-sm-9">
+                    <input type="file" name="hasil_penelitian" class="{{$errors->has('hasil_penelitian') ? 'is-invalid' : ''}}" id="dropify-hasil" 
+                    @if( is_null($riset->hasil_penelitian))
+                    
+                    @else 
+                      data-default-file="{{asset('storage/'.$riset->hasil_penelitian)}}" 
+                    @endif >
+                    <small class="form-text text-mute">Format file yang dibolehkan adalah <b>pdf</b> dengan ukuran ukuran maksimal 10MB</small>
+                    @if ($errors->has('hasil_penelitian'))
+                      {{-- <div class="invalid-feedback"> --}}
+                          <small class="form-text text-mute" style="width: 100%; margin-top: 0.25rem; font-size: 80%; color: #dc3545;"> {{$errors->first('hasil_penelitian')}} </small>
+                        {{-- </div> --}}
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group row mb-0">
+                  <label class="col-sm-3 col-form-label">Resume</label>
+                  <div class="col-sm-12 col-md-9">
+                    <textarea class=" summernote form-control {{$errors->has('resume') ? 'is-invalid' : ''}}" name="resume" style="margin-top: 0px; margin-bottom: 0px; height: 100px;">{{ $riset->resume }}</textarea>
+                    @if ($errors->has('resume'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('resume')}}
+                      </div>
+                    @endif
+                  </div>
+                </div> 
                 
               </div>
               <div class="card-footer text-right ">
@@ -233,6 +370,17 @@
         window.location = url;          
       });
 
+      var drHasil = $('#dropify-hasil').dropify();
+      drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+      });
+
+      drHasil.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+        var url = base_url+'riset/'+idRiset+'/removeFile/penelitian';          
+        window.location = url;
+      });
+
       $('.datepicker').daterangepicker({
         locale: {format: 'YYYY-MM-DD'},
         showDropdowns: true,
@@ -240,6 +388,19 @@
         minYear: 2010,
         maxYear: parseInt(moment().format('YYYY'),10),
         autoApply: true,
+      });
+
+      $(function() {
+        $('input[name="tgl_pelaksanaan"]').daterangepicker({
+          opens: 'left',
+          locale: {format: 'YYYY-MM-DD'},
+        }, function(start, end, label) {
+          console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+      });
+
+      $(document).ready(function() {
+          $('.js-example-basic-multiple').select2();
       });
       
     });

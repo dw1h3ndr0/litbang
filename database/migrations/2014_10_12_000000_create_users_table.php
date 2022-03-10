@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('nip')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamp('last_login')->nullable();
+            $table->string('kode_wilayah');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
