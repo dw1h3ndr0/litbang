@@ -9,9 +9,11 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Wilayah;
 use App\Models\Setting;
 
 class UserController extends Controller
@@ -26,9 +28,17 @@ class UserController extends Controller
     	}
 
         if(Auth()->user()->role_id < '4'){
-            $data_user = User::all();
+            if(Auth::user()->wilayah_id == '1'){                
+                $data_user = User::all();
+            }else{
+                $data_user = User::where('wilayah_id', Auth::user()->wilayah_id)->get();
+            }
         }else{
-            $data_user = User::where('role_id','>=','4')->get();
+            if(Auth::user()->wilayah_id == '1'){
+                $data_user = User::where('role_id','>=','4')->get();
+            }else{
+                $data_user = User::where('role_id','>=','4')->where('wilayah_id', Auth::user()->wilayah_id)->get();
+            }
         }
 
         // dd($data_user);
@@ -50,10 +60,17 @@ class UserController extends Controller
             $data_role = Role::where('id','>=','4')->get();
         }
 
+        if(Auth::user()->wilayah_id == '1'){
+            $data_wilayah = Wilayah::all();
+        }else {
+            $data_wilayah = Wilayah::where('id',Auth::user()->wilayah_id)->get();
+        }
+            
         $setting = Setting::first();
     	return view('user.create', [
             'setting' => $setting,
     		'data_role' => $data_role,
+            'data_wilayah' => $data_wilayah,
     		'avatar' => 'avatar-'.rand(1,5).'.png',
     	]);
     }
@@ -66,6 +83,7 @@ class UserController extends Controller
         		// 'username' => 'required|unique:App\Models\User,username',
         		'email' => 'required|email:dns|regex:/^.+@.+$/i|unique:App\Models\User,email',
         		'role' => 'required',
+                'wilayah' => 'required',
         		'phone' => 'regex:/^[0-9\s]*$/|nullable',
         		'nip' => 'regex:/^[0-9\s]*$/|nullable',
         		'photo' => 'image|max:1024',
@@ -113,6 +131,7 @@ class UserController extends Controller
 
 	    		$user->email = $request->email;
 	    		$user->role_id = $request->role;
+                $user->wilayah_id = $request->wilayah;
 	    		$user->phone = $request->phone;
 	    		$user->nip = $request->nip;	    		
 
@@ -141,12 +160,10 @@ class UserController extends Controller
     public function show(User $user)
     {
         // $user = \App\Models\User::findOrFail($id);
-        $data_role = \App\Models\Role::all();
         $setting = Setting::first();
         return view('user.show', [
             'setting' => $setting,
         	'user' => $user,
-        	'data_role' => $data_role,
     		'avatar' => 'avatar-'.rand(1,5).'.png',
         ]);
     }
@@ -160,12 +177,19 @@ class UserController extends Controller
         }elseif(Auth()->user()->role_id == '4'){
             $data_role = Role::where('id','>=','4')->get();
         }
+
+        if(Auth::user()->wilayah_id == '1'){
+            $data_wilayah = Wilayah::all();
+        }else {
+            $data_wilayah = Wilayah::where('id',Auth::user()->wilayah_id)->get();
+        }
         
         $setting = Setting::first();
         return view('user.edit', [
             'setting' => $setting,
         	'user' => $user,
         	'data_role' => $data_role,
+            'data_wilayah' => $data_wilayah,
     		'avatar' => 'avatar-'.rand(1,5).'.png',
         ]);
     }
@@ -179,6 +203,7 @@ class UserController extends Controller
         		// 'username' => 'required',
         		'email' => 'required|email|regex:/^.+@.+$/i',
         		'role' => 'required',
+                'wilayah' => 'required',
         		'phone' => 'regex:/^[0-9\s]*$/|nullable',
         		'nip' => 'regex:/^[0-9\s]*$/|nullable',
         		'photo' => 'image|max:1024'
@@ -200,6 +225,7 @@ class UserController extends Controller
                 // $user = \App\Models\User::findOrFail($id);
 	    		$user->name = $request->name;
 	    		$user->role_id = $request->role;
+                $user->wilayah_id = $request->wilayah;
 	    		$user->phone = $request->phone;
 	    		$user->nip = $request->nip;
 	    		$user->is_active = $request->status;

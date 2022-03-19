@@ -28,6 +28,7 @@ class User extends Authenticatable
         'nip',
         'is_active',
         'last_login',
+        'wilayah_id',
         'updated_at',
         'updated_by',
         'created_by',
@@ -56,5 +57,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class,'role_id');
+    }
+
+    public function wilayah()
+    {
+        return $this->belongsTo(Wilayah::class,'wilayah_id');
     }
 }

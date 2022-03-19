@@ -62,6 +62,9 @@
                       <strong>Email</strong>
                       <p class="text-muted">{{ $user->email }}</p>
                       <hr>
+                      <strong>Wilayah</strong>
+                      <p class="text-muted">{{ $user->wilayah->wilayah }}</p>
+                      <hr>
                       <strong>Nomor Telepon</strong>
                       <p class="text-muted">{{ is_null($user->phone) ? '-' : $user->phone }}</p>
                       <hr>

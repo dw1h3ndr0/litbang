@@ -7,6 +7,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Riset;
 use App\Models\Kategori;
@@ -27,8 +28,14 @@ class RisetController extends Controller
     		Alert::error('Gagal', session('eror'));
     	}
 
-        $data_riset = \App\Models\Riset::all();
-        $data_kategori = Kategori::all();
+        if(Auth::user()->wilayah_id == '1'){
+            $data_riset = \App\Models\Riset::all();
+        }else{
+            $data_riset = Riset::where('wilayah_id', Auth::user()->wilayah_id)->get();
+        }
+
+        // $data_kategori = Kategori::all();
+        $data_kategori = Kategori::whereNotNull('name')->get();
         $setting = Setting::first();
 
     	return view('riset.index',[
@@ -40,7 +47,8 @@ class RisetController extends Controller
 
     public function create()
     {
-        $data_kategori = Kategori::all();
+        // $data_kategori = Kategori::all();
+        $data_kategori = Kategori::whereNotNull('name')->get();
         $setting = Setting::first();
     	return view('riset.create',[
             'setting' => $setting,
@@ -137,7 +145,7 @@ class RisetController extends Controller
 
                 $riset->resume = $request->resume;
 
-                // $riset->kode_wilayah = Auth::user()->kode_wilayah;
+                $riset->wilayah_id = Auth::user()->wilayah_id;
 
                 $riset->created_by = auth()->user()->id;
 	    		$riset->save();
@@ -154,7 +162,8 @@ class RisetController extends Controller
     public function show(Riset $riset)
     {
         // $riset = \App\Models\Riset::findOrFail($id);
-        $data_kategori = Kategori::all();
+        // $data_kategori = Kategori::all();
+        $data_kategori = Kategori::whereNotNull('name')->get();
         $setting = Setting::first();           
         $kategoris = Str::of($riset->kategori_id)->explode(',');     
         return view('riset.show', [
@@ -168,7 +177,8 @@ class RisetController extends Controller
     public function edit(Riset $riset)
     {
         // $riset = \App\Models\Riset::findOrFail($id);
-        $data_kategori = Kategori::all();
+        // $data_kategori = Kategori::all();
+        $data_kategori = Kategori::whereNotNull('name')->get();
         $setting = Setting::first();
         $kategoris = Str::of($riset->kategori_id)->explode(',');
         return view('riset.edit', [
@@ -288,7 +298,7 @@ class RisetController extends Controller
 
                 $riset->resume = $request->resume;
 
-                // $riset->kode_wilayah = Auth::user()->kode_wilayah;
+                $riset->wilayah_id = Auth::user()->wilayah_id;
 
                 $riset->updated_by = auth()->user()->id;
                 $riset->save();

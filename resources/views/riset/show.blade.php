@@ -72,6 +72,9 @@
                       <hr>
                       <strong>Surat Izin</strong>
                       <p class="text-muted">{{ is_null($riset->no_surat_izin) ? '-' : $riset->no_surat_izin }} tanggal {{ is_null($riset->tgl_surat_izin) ? '-' : $riset->tgl_surat_izin }}</p>
+                      <hr>                      
+                      <strong>Wewenang</strong>
+                      <p class="text-muted">Kesbangpol {{ $riset->wilayah->wilayah }}</p>
                       <hr>                                                         
                     </div>
                     <!-- /.card -->

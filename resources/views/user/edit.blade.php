@@ -102,6 +102,26 @@
                   </div>
                 </div>
                 <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Wilayah <i class="text-danger">*</i></label>
+                  <div class="col-sm-9">
+                    <select name="wilayah" class="form-control select2 {{$errors->has('wilayah') ? 'is-invalid' : ''}}">                 
+                    <option value="">--pilih wilayah--</option>
+                    @foreach($data_wilayah as $wilayah)    
+                      @if($user->wilayah_id == $wilayah->id)
+                        <option value="{{ $wilayah->id }}" selected>[{{$wilayah->kode}}] {{ $wilayah->wilayah }}</option>
+                      @else                  
+                        <option value="{{ $wilayah->id }}">[{{$wilayah->kode}}] {{ $wilayah->wilayah }}</option>
+                      @endif
+                    @endforeach                      
+                    </select>
+                    @if ($errors->has('wilayah'))
+                      <div class="invalid-feedback">
+                        {{$errors->first('wilayah')}}
+                      </div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Nomor Telp/HP</label>
                   <div class="col-sm-9">
                     <input name="phone" type="text" class="form-control phone-format {{$errors->has('phone') ? 'is-invalid' : ''}}" value="{{ $user->phone }}">

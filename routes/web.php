@@ -8,6 +8,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\WilayahController;
 use App\Models\Setting;
 
 /*
@@ -50,7 +52,7 @@ Route::group(['middleware' => ['auth','checkRole:1,2,4']], function(){
 	Route::post('/user',[UserController::class,'store'])->name('user.store');
 	Route::get('/user/{user:username}/edit',[UserController::class, 'edit'])->name('user.edit');
 	Route::put('/user/{user:username}',[UserController::class,'update'])->name('user.update');
-	Route::delete('/user/{user:username}/destroy',[UserController::class,'destroy'])->name('user.destroy');	
+	Route::delete('/user/{user:username}',[UserController::class,'destroy'])->name('user.destroy');	
 	Route::get('/user/{id}/removeImage',[UserController::class, 'removeImage'])->name('user.removeImage');
 
 	//Rubah Password
@@ -64,10 +66,14 @@ Route::group(['middleware' => ['auth','checkRole:1,2,4']], function(){
 	Route::get('/setting/removeFile/{jenis}',[SettingController::class, 'removeFile'])->name('setting.removeFile');
 
 	//Kategori
-	Route::post('/kategori',[KategoriController::class],'store')->name('kategori.store');
-	Route::put('kategori/{id}',[KategoriController::class],'update')->name('kategori.update');
-	Route::delete('kategori/{id}/destroy',[KategoriController::class],'destroy')->name('kategori.destroy');
+	Route::post('/kategori',[KategoriController::class,'store'])->name('kategori.store');
+	Route::put('/kategori/{kategori:id}',[KategoriController::class,'update'])->name('kategori.update');
+	Route::delete('/kategori/{kategori:id}',[KategoriController::class,'destroy'])->name('kategori.destroy');
 
+	//Wilayah
+	Route::post('/wilayah',[WilayahController::class,'store'])->name('wilayah.store');
+	Route::put('/wilayah/{wilayah:id}',[WilayahController::class,'update'])->name('wilayah.update');
+	Route::delete('/wilayah/{wilayah:id}',[WilayahController::class,'destroy'])->name('wilayah.destroy');
 });
 
 	

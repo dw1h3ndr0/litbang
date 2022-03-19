@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Setting;
 use App\Models\Kategori;
+use App\Models\Wilayah;
 use App\Models\Riset;
 
 class DatabaseSeeder extends Seeder
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
         	'role_id' => '1',
         	'photo' => 'profil/avatar-4.png',
         	'is_active' => '1',
-            'kode_wilayah' => '7500'
+            'wilayah_id' => '1'
         ]);
 
         User::create([
@@ -38,7 +39,7 @@ class DatabaseSeeder extends Seeder
         	'role_id' => '4',
         	'photo' => 'profil/avatar-1.png',
         	'is_active' => '1',
-            'kode_wilayah' => '7500'
+            'wilayah_id' => '1'
         ]);
 
         User::create([
@@ -49,7 +50,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => '4',
             'photo' => 'profil/avatar-1.png',
             'is_active' => '1',
-            'kode_wilayah' => '7505'
+            'wilayah_id' => '6'
         ]);
 
         User::create([
@@ -60,7 +61,7 @@ class DatabaseSeeder extends Seeder
         	'role_id' => '5',
         	'photo' => 'profil/avatar-3.png',
         	'is_active' => '1',
-            'kode_wilayah' => '7500'
+            'wilayah_id' => '1'
         ]);
 
         User::create([
@@ -71,7 +72,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => '5',
             'photo' => 'profil/avatar-3.png',
             'is_active' => '1',
-            'kode_wilayah' => '7505'
+            'wilayah_id' => '6'
         ]);
 
         User::create([
@@ -82,7 +83,7 @@ class DatabaseSeeder extends Seeder
         	'role_id' => '2',
         	'photo' => 'profil/avatar-2.png',
         	'is_active' => '1',
-            'kode_wilayah' => '7500'
+            'wilayah_id' => '1'
         ]);
 
         User::create([
@@ -93,7 +94,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => '2',
             'photo' => 'profil/avatar-2.png',
             'is_active' => '1',
-            'kode_wilayah' => '7505'
+            'wilayah_id' => '6'
         ]);
 
         User::create([
@@ -104,7 +105,7 @@ class DatabaseSeeder extends Seeder
         	'role_id' => '3',
         	'photo' => 'profil/avatar-4.png',
         	'is_active' => '1',
-            'kode_wilayah' => '7500'
+            'wilayah_id' => '1'
         ]);
 
         User::create([
@@ -115,7 +116,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => '3',
             'photo' => 'profil/avatar-4.png',
             'is_active' => '1',
-            'kode_wilayah' => '7505'
+            'wilayah_id' => '6'
         ]);
 
         User::create([
@@ -126,7 +127,7 @@ class DatabaseSeeder extends Seeder
         	'role_id' => '6',
         	'photo' => 'profil/avatar-5.png',
         	'is_active' => '1',
-            'kode_wilayah' => '7500'
+            'wilayah_id' => '1'
         ]);
 
         User::create([
@@ -137,7 +138,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => '6',
             'photo' => 'profil/avatar-5.png',
             'is_active' => '1',
-            'kode_wilayah' => '7505'
+            'wilayah_id' => '6'
         ]);
 
 
@@ -191,6 +192,41 @@ class DatabaseSeeder extends Seeder
             'display_name' => 'Pengguna',
             'description' => 'Pengguna Aplikasi Database Kelitbangan',
             'is_super' => 0
+        ]);
+
+        Wilayah::create([
+            'kode' => '7500',
+            'wilayah' => 'Provinsi Gorontalo'
+        ]);
+
+        Wilayah::create([
+            'kode' => '7501',
+            'wilayah' => 'Kabupaten Boalemo'
+        ]);
+
+        Wilayah::create([
+            'kode' => '7502',
+            'wilayah' => 'Kabupaten Gorontalo'
+        ]);
+
+        Wilayah::create([
+            'kode' => '7503',
+            'wilayah' => 'Kabupaten Pohuwato'
+        ]);
+
+        Wilayah::create([
+            'kode' => '7504',
+            'wilayah' => 'Kabupaten Bone Bolango'
+        ]);
+
+        Wilayah::create([
+            'kode' => '7505',
+            'wilayah' => 'Kabupaten Gorontalo Utara'
+        ]);
+
+        Wilayah::create([
+            'kode' => '7571',
+            'wilayah' => 'Kota Gorontalo'
         ]);
 
         Kategori::create([

@@ -22,8 +22,8 @@ class CreateRisetsTable extends Migration
             $table->string('sumber_dana');
             $table->string('judul');
             $table->string('slug')->unique();
-            // $table->string('kategori_id');
-            $table->string('kategori_id');
+            // $table->foreignId('kategori_id');
+            $table->string('kategori_id')->nullable();
             $table->string('penyelenggara');
             $table->string('pelaksana');
             $table->string('penanggungjawab');
@@ -35,8 +35,8 @@ class CreateRisetsTable extends Migration
             $table->longText('abstrak')->nullable();
             $table->string('proposal')->nullable();
             $table->longText('resume')->nullable();
-            $table->string('hasil_penelitian')->nullable();
-            $table->string('kode_wilayah');
+            $table->string('hasil_penelitian')->nullable();            
+            $table->foreignId('wilayah_id');
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('created_by')->nullable();

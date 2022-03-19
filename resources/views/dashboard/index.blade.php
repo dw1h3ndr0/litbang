@@ -68,7 +68,7 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Riste Minggu Ini</h4>
+                    <h4>Riset Minggu Ini</h4>
                   </div>
                   <div class="card-body">
                     {{$data['weekRiset']}}
@@ -91,9 +91,9 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <canvas id="yearChart" height="180" ></canvas>
-                  <canvas id="monthChart" height="180"></canvas>
-                  <canvas id="weekChart" height="180"></canvas>
+                  <canvas id="yearChart" height="190" ></canvas>
+                  <canvas id="monthChart" height="190"></canvas>
+                  <canvas id="weekChart" height="190"></canvas>
               	</div>
               </div>
             </div>
@@ -138,6 +138,66 @@
               </div>
             </div>
           </div>
+          <div class="row">          	
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Penyelenggara</h6>                 
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="PenyelenggaraChart" height="350"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-3">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Sumber Dana</h6>                   
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="SumberDanaPieChart" height="280"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Dalam Negeri
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> Luar Negeri
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  </div>
+
+		  <div class="row">      	
+            <!-- Area Chart -->
+		  	<div class="col-xl-12 col-lg-12">
+		  		<div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Kategori</h6>                 
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="KategoriChart" height="500"></canvas>
+                  </div>
+                </div>
+              </div>
+		  	</div>
+		  </div>
+
 	</section>
 @endsection
 
@@ -479,6 +539,135 @@
 		  },
 		});
   	};
+
+	// Bar Chart Penyelenggara
+  var ctx = document.getElementById("PenyelenggaraChart");
+  // console.log(cData.penyelenggara_individu);
+  var myPenyelenggaraChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: cData.penyelenggara_label,
+      datasets: [
+      {
+        label: "Selesai",
+        data: cData.penyelenggara_selesai,
+        backgroundColor: '#1cc88a',
+        hoverBackgroundColor: '#17a673',
+        hoverBorderColor: "rgba(234, 236, 244, 1)",
+      },
+      {
+        label: "Proses",
+        data: cData.penyelenggara_proses,
+        backgroundColor: '#36b9cc',
+        hoverBackgroundColor: '#2c9faf',
+        hoverBorderColor: "rgba(234, 236, 244, 1)",
+      },
+      {
+        label: "Belum",
+        data: cData.penyelenggara_belum,
+        backgroundColor: '#4e73df',
+        hoverBackgroundColor: '#2e59d9',
+        hoverBorderColor: "rgba(234, 236, 244, 1)",
+      }
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 25,
+          top: 25,
+          bottom: 0
+        }
+      },
+      responsive: true,
+      scales: {
+	      x: {
+	        stacked: true,
+	      },
+	      y: {
+	        stacked: true
+	      }
+	    },
+      legend: {
+        display: true
+      },
+    }
+  });
+
+  	// Pie Chart Sumber Dana
+    var ctx = document.getElementById("SumberDanaPieChart");
+    var myPieChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ["Dalam Negeri", "Luar Negeri"],
+        datasets: [{
+          data: [cData.dalamNegeri, cData.luarNegeri],
+          backgroundColor: ['#36b9cc', '#4e73df'],
+          hoverBackgroundColor: ['#2c9faf', '#2e59d9'],
+          hoverBorderColor: "rgba(234, 236, 244, 1)",
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false
+        },
+        cutoutPercentage: 50,
+      },
+    });
+
+    // Bar Chart Kategori
+  var ctx = document.getElementById("KategoriChart");
+  var myKategoriChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: cData.kategori_label,
+      datasets: [
+      {
+        label: "Jumlah",
+        data: cData.kategori_total,
+        backgroundColor: '#36b9cc',
+        hoverBackgroundColor: '#2c9faf',
+        hoverBorderColor: "rgba(234, 236, 244, 1)",
+      }
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 25,
+          top: 25,
+          bottom: 0
+        }
+      },
+      responsive: true,
+      scales: {
+	      x: {
+	        stacked: true,
+	      },
+	      y: {
+	        stacked: true
+	      }
+	    },
+      legend: {
+        display: true
+      },
+    }
+  });
     
   </script>
 @endpush

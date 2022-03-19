@@ -32,7 +32,7 @@ class RisetFactory extends Factory
             'sumber_dana' => $this->faker->randomElement(['Dalam Negeri', 'Luar Negeri']),
             'judul' => $this->faker->sentence(mt_rand(2,8)),
             'slug' => $this->faker->slug(),
-            'kategori_id' => mt_rand(1,21),
+            'kategori_id' => mt_rand(1,6).','.mt_random(7,15).','.mt_random(16,21),
             'penyelenggara' => $this->faker->randomElement(['Individu', 'Kementerian/Lembaga', 'Perguruan Tinggi','Organisasi Masyarakat','Badan Usaha']),
             'pelaksana' => $this->faker->name(),
             'penanggungjawab' => $this->faker->name(),
@@ -45,7 +45,7 @@ class RisetFactory extends Factory
             'abstrak' => $this->faker->paragraphs(mt_rand(6,10),true),
             'hasil_penelitian' => 'penelitian/'.$folder.'/default.pdf',
             'resume' => $this->faker->paragraphs(mt_rand(6,10),true),
-            'kode_wilayah' => $this->faker->randomElement(['7500', '7505']),
+            'wilayah_id' => $this->faker->randomElement(['1', '6']),
             'created_at' => now()
         ];
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Setting;
 use App\Models\Kategori;
+use App\Models\Wilayah;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -22,9 +23,11 @@ class SettingController extends Controller
     	}
 
     	$setting = Setting::first();
-        $data_kategori = Kategori::all();
+        $data_wilayah = Wilayah::all();
+        $data_kategori = Kategori::whereNotNull('name')->get();
     	return view('setting.index',[
             'setting' => $setting,
+            'data_wilayah' => $data_wilayah,
             'data_kategori' => $data_kategori
         ]);
     }

@@ -16,4 +16,9 @@ class Riset extends Model
     {
         return $this->belongsTo(Kategori::class,'kategori_id');
     }
+
+    public function wilayah()
+    {
+        return $this->belongsTo(Wilayah::class,'wilayah_id');
+    }
 }

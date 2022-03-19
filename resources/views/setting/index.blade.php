@@ -109,48 +109,8 @@
         </p>  
 
         <div class="row">              
-          <div class="col-12 col-md-12 col-lg-7">
-            <div class="card card-primary">
-              {{-- 
-              <div class="card-header">
-                <h4>Kategori</h4>
-              </div>
-              <div class="card-body"> 
-                <div class="form-group row">
-                  <div class="col-sm-12"> 
-
-                  <div class="card-footer text-right ">
-                    <a href="{{ asset(route('kategori.store', [], false)) }}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Tambah Riset</a>
-                  </div>
-
-                    <div class="table-responsive">
-                      <table class="table table-striped table-md">
-                        <tbody>
-                        <tr>
-                          <th>#</th>
-                          <th>Kategori</th>
-                          <th>Deskripsi</th>
-                          <th>Aksi</th>
-                        </tr>
-                        @foreach($data_kategori as $kategori)
-                          <tr>
-                          <td>{{ $loop->index + 1 }}</td>
-                          <td>{{ $kategori->name }}</td>
-                          <td>{{ $kategori->description }}</td>
-                          <td class="text-center">
-                            <a href="{{ asset(route('kategori.update', $kategori->id)) }}" class="btn btn-icon btn-sm btn-warning" title="edit"><i class="fa fa-edit"></i></a>
-                            
-                            <button class="btn btn-icon btn-sm btn-danger delete-button" style="display:inline;" title="hapus"><i class="fa fa-trash"></i></button>
-                          </td>
-                        </tr>   
-                        @endforeach
-                        
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>                
-                </div>
-              </div> --}}
+          <div class="col-12 col-md-12 col-lg-5">
+            <div class="card card-primary">                           
 
               <div class="card-header">
                 <h4>General Settings</h4>
@@ -207,10 +167,8 @@
                   </div>
                 </div>                
               </div>
-
             </div>
-          </div>
-          <div class="col-12 col-md-12 col-lg-5">
+
             <div class="card card-primary">
               <div class="card-header">
                 <h4>Login Picture</h4>
@@ -234,6 +192,102 @@
                 </div>
               </div>              
             </div>
+          </div>
+
+          <div class="col-12 col-md-12 col-lg-7">            
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>Wilayah</h4>
+              </div>
+              <div class="card-footer text-right float-right">                    
+                <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#storeWilayahModal"><i class="fa fa-plus"></i> Tambah Wilayah</a>
+              </div>
+              <div class="card-body"> 
+                <div class="form-group row">
+                  <div class="col-sm-12"> 
+
+                    <div class="table-responsive">
+                      <table class="table table-hover" id="wilayahtabel">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Kode</th>
+                            <th scope="col">Wilayah</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($data_wilayah as $wilayah)
+                          <tr>
+                          <td>{{ $loop->index + 1 }}</td>
+                          <td>{{ $wilayah->kode }}</td>
+                          <td>{{ $wilayah->wilayah }}</td>
+                          <td class="text-center">
+
+                            <a href="#" class="btn btn-icon btn-sm btn-warning editWilayah" data-toggle="modal" data-target="#updateWilayahModal" title="edit"><i class="fa fa-edit"></i></a>
+                            
+                            <a href="#" class="btn btn-icon btn-sm btn-danger deleteWilayah" data-toggle="modal" data-target="#deleteWilayahModal" title="hapus"><i class="fa fa-trash"></i></a>
+                          </td>
+                        </tr>   
+                        @endforeach
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>                
+                </div>
+              </div>
+            </div>
+           
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>Kategori</h4>
+              </div>
+              <div class="card-footer text-right float-right">                    
+                <a href="#" class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#storeKategoriModal"><i class="fa fa-plus"></i> Tambah Kategori</a>
+              </div>
+              <div class="card-body"> 
+                <div class="form-group row">
+                  <div class="col-sm-12"> 
+
+                    <div class="table-responsive">
+                      <table class="table table-hover" id="kategoritabel">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($data_kategori as $kategori)
+                          <tr>
+                          <td>{{ $loop->index + 1 }}</td>
+                          <td>{{ $kategori->name }}</td>
+                          <td>{{ $kategori->description }}</td>
+                          <td class="text-center">
+
+                            <a href="#" class="btn btn-icon btn-sm btn-warning edit" data-toggle="modal" data-target="#updateKategoriModal" title="edit"><i class="fa fa-edit"></i></a>
+                            
+                           {{-- <form action="{{ route('kategori.destroy', $kategori->id)}}" method="post">
+                            @method('DELETE') --}}
+                            <a href="#" class="btn btn-icon btn-sm btn-danger delete" data-toggle="modal" data-target="#deleteKategoriModal" title="hapus"><i class="fa fa-trash"></i></a>
+                            {{-- <button class="btn btn-icon btn-sm btn-danger delete-button" onclick="deleteItem({{$kategori}})" data-id="{{$kategori->id}}" title="hapus"><i class="fa fa-trash"></i></button> --}}
+
+                            {{-- </form> --}}
+
+                          </td>
+                        </tr>   
+                        @endforeach
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>                
+                </div>
+              </div>
+            </div>
           </div> 
         </div>
 
@@ -244,6 +298,274 @@
 
       </div>
     </section>
+
+    <div class="modal fade" id="storeWilayahModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="storeWilayahModal">{{ __('Tambah Wilayah') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="{{ asset(route('wilayah.store', false)) }}">
+              @csrf
+
+              <div class="form-group row">
+                <label for="kode" class="col-md-4 col-form-label text-md-right">{{ __('Kode') }}</label>
+
+                <div class="col-md-6">
+                  <input id="kode" type="text" class="form-control @error('kode') is-invalid @enderror" name="kode" value="{{ old('kode') }}" required autocomplete="kode" autofocus>
+
+                  @error('kode')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="wilayah" class="col-md-4 col-form-label text-md-right">{{ __('Wilayah') }}</label>
+
+                <div class="col-md-6">
+                  <textarea class=" form-control  @error('wilayah') is-invalid @enderror" name="wilayah" style="width: 100%; height: 64px; font-size: 100%;" required>{{ old('wilayah')}}</textarea>                  
+                  @error('wilayah')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row mb-0">
+                <div class="col-md-10 col-form-label text-md-right">
+                    <button type="submit" class="btn btn-primary">
+                      {{ __('Submit') }}
+                    </button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="updateWilayahModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateWilayahModal">{{ __('Edit Wilayah') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/wilayah" id="editWilayahForm">
+              {{ method_field('PUT') }}
+              @csrf
+
+              <div class="form-group row">
+                <label for="kode" class="col-md-4 col-form-label text-md-right">{{ __('Kode') }}</label>
+
+                <div class="col-md-6">
+                  <input id="kodwil" type="text" class="form-control @error('kode') is-invalid @enderror" name="kode" required>
+
+                  @error('kode')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="wilayah" class="col-md-4 col-form-label text-md-right">{{ __('Wilayah') }}</label>
+
+                <div class="col-md-6">
+                  <textarea id="wilayah" class=" form-control  @error('wilayah') is-invalid @enderror" name="wilayah" style="width: 100%; height: 64px; font-size: 100%;" required></textarea>                  
+                  @error('wilayah')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row mb-0">
+                <div class="col-md-10 col-form-label text-md-right">
+                    <button type="submit" class="btn btn-primary">
+                      {{ __('Simpan') }}
+                    </button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="deleteWilayahModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteWilayahModal">{{ __('Hapus Wilayah') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/wilayah" id="deleteWilayahForm">
+              {{ method_field('DELETE') }}
+              @csrf              
+
+              <div class="form-group row mb-0">
+                <div class="col-md-10 col-form-label text-md-right">
+                    <button type="submit" class="btn btn-primary">
+                      {{ __('Submit') }}
+                    </button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="storeKategoriModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="storeKategoriModal">{{ __('Tambah Kategori') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="{{ asset(route('kategori.store', false)) }}">
+              @csrf
+
+              <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Kategori') }}</label>
+
+                <div class="col-md-6">
+                  <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                  @error('name')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Deskripsi') }}</label>
+
+                <div class="col-md-6">
+                  <textarea class=" form-control  @error('description') is-invalid @enderror" name="description" style="width: 100%; height: 64px; font-size: 100%;">{{ old('description')}}</textarea>                  
+                  @error('description')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row mb-0">
+                <div class="col-md-10 col-form-label text-md-right">
+                    <button type="submit" class="btn btn-primary">
+                      {{ __('Submit') }}
+                    </button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="updateKategoriModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateKategoriModal">{{ __('Edit Kategori') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/kategori" id="editForm">
+              {{ method_field('PUT') }}
+              @csrf
+
+              <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Kategori') }}</label>
+
+                <div class="col-md-6">
+                  <input id="kategori" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
+
+                  @error('name')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Deskripsi') }}</label>
+
+                <div class="col-md-6">
+                  <textarea id="description" class=" form-control  @error('description') is-invalid @enderror" name="description" style="width: 100%; height: 64px; font-size: 100%;"></textarea>                  
+                  @error('description')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
+                </div>
+              </div>
+
+              <div class="form-group row mb-0">
+                <div class="col-md-10 col-form-label text-md-right">
+                    <button type="submit" class="btn btn-primary">
+                      {{ __('Simpan') }}
+                    </button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="deleteKategoriModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteKategoriModal">{{ __('Hapus Kategori') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/kategori" id="deleteForm">
+              {{ method_field('DELETE') }}
+              @csrf              
+
+              <div class="form-group row mb-0">
+                <div class="col-md-10 col-form-label text-md-right">
+                    <button type="submit" class="btn btn-primary">
+                      {{ __('Submit') }}
+                    </button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
       
 @endsection
 
@@ -251,6 +573,8 @@
 <script>
 
   base_url="{{asset('')}}";
+
+  
 
     $(function() {
       $('.dropify').dropify();
@@ -319,6 +643,148 @@
         autoApply: true,
       });
 
+      $(document).ready(function() {
+          var table = $('#wilayahtabel').DataTable();   
+
+          //start edit record
+          table.on('click', '.editWilayah', function() {
+
+            $tr = $(this).closest('tr');
+            if($($tr).hasClass('child')){
+              $tr = $tr.prev('.parent');
+            }
+
+            var data = table.row($tr).data();
+            console.log(data);
+
+            $('#kodwil').val(data[1]);
+            $('#wilayah').val(data[2]);
+
+            $('#editWilayahForm').attr('action', '/wilayah/'+data[0]);
+            $('#updateWilayahModal').modal('show');
+          });
+
+          table.on('click', '.deleteWilayah', function() {
+
+            $tr = $(this).closest('tr');
+            if($($tr).hasClass('child')){
+              $tr = $tr.prev('.parent');
+            }
+
+            var data = table.row($tr).data();
+            console.log(data);
+            // myFunction(data[0]);
+            swal.fire({
+              title: 'Apa Anda Yakin?',
+              text: "Anda akan menghapus data",
+              icon: 'info',
+              showCancelButton: true,
+              timer: 4000,
+              timerProgressBar: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ya, Hapus',
+              cancelButtonText: 'Batal'
+            }).then((result) => {
+            if (result.isConfirmed) {            
+              // $(e.target).closest('form').submit()
+
+              $('#deleteWilayahForm').attr('action', '/wilayah/'+data[0]);
+              $('#deleteWilayahForm').submit();
+
+            } else{
+              console.log('close modal');    
+              $("#deleteWilayahModal .close").click();
+            }
+          });             
+        });
+      });
+
+      $(document).ready(function() {
+          var table = $('#kategoritabel').DataTable();   
+
+          //start edit record
+          table.on('click', '.edit', function() {
+
+            $tr = $(this).closest('tr');
+            if($($tr).hasClass('child')){
+              $tr = $tr.prev('.parent');
+            }
+
+            var data = table.row($tr).data();
+            console.log(data);
+
+            $('#kategori').val(data[1]);
+            $('#description').val(data[2]);
+
+            $('#editForm').attr('action', '/kategori/'+data[0]);
+            $('#updateKategoriModal').modal('show');
+          });
+
+          table.on('click', '.delete', function() {
+
+            $tr = $(this).closest('tr');
+            if($($tr).hasClass('child')){
+              $tr = $tr.prev('.parent');
+            }
+
+            var data = table.row($tr).data();
+            console.log(data);
+            // myFunction(data[0]);
+            swal.fire({
+              title: 'Apa Anda Yakin?',
+              text: "Anda akan menghapus data",
+              icon: 'info',
+              showCancelButton: true,
+              timer: 4000,
+              timerProgressBar: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ya, Hapus',
+              cancelButtonText: 'Batal'
+            }).then((result) => {
+            if (result.isConfirmed) {            
+              // $(e.target).closest('form').submit()
+
+              $('#deleteForm').attr('action', '/kategori/'+data[0]);
+              $('#deleteForm').submit();
+              
+              // var url = '{{ route("kategori.destroy", ":slug") }}';            
+              // url = url.replace(':slug', slug);
+              // window.location = url;    
+              // console.log(url);
+              // $.ajax({
+              //   url: url,
+              //   type:'POST',
+                // data:{
+                //     '_method': 'DELETE'
+                // },
+                // success:function(data) {
+                //   console.log('berhasil delete');
+                //   if (data.status == 1){
+                //     swal.fire(
+                //         'Deleted!',
+                //         'Your file has been deleted.',
+                //         "success"
+                //     );
+                //     $("#tr"+data.slug+"").remove(); // you can add name div to remove
+                //   }
+                // }
+              // });
+            } else{
+              console.log('close modal');    
+              $("#deleteKategoriModal .close").click();
+            }
+          });             
+        });
+      });  
+
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });      
+      
     });
     
 </script>

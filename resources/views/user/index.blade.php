@@ -36,7 +36,7 @@
                 <table class="table table-hover" id="usertable">
                   <thead>
                     <tr>
-                      {{-- <th scope="col">No.</th> --}}
+                      <th scope="col">No.</th>
                       <th scope="col">Nama</th>
                       <th scope="col">Email</th>                      
                       <th scope="col">Nomor Telp/HP</th>
@@ -50,7 +50,7 @@
 
                     @foreach($data_user as $user)
                     <tr>
-                      {{-- <td>{{ $loop->index + 1 }}</td> --}}
+                      <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $user->name }}</td>
                       <td>{{ $user->email }}</td>
                       <td>{{ $user->phone }}</td>
@@ -61,7 +61,7 @@
                           <img src="{{asset('storage/'.$user->photo)}}" alt="...">
                         </figure>
                       </td>
-                      <td class="text-center">  
+                      <td class="col-md-2 text-center">  
 
                           <form action="{{ route('user.destroy', $user->username)}}" method="post">
                           @method('DELETE')
